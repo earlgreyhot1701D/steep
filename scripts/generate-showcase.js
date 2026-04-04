@@ -187,18 +187,23 @@ async function main() {
       var symbols = selectSymbols(repoData);
       console.log('  Symbols: ' + symbols.map(function (s) { return s.name; }).join(', '));
 
-      // 3. Call /api/divine (retry once on 429)
+      // 3. Call /api/divine (retry up to 3 times on 429, 60s between retries)
       console.log('  Calling Madame Steep...');
       var reading;
-      try {
-        reading = await post(DIVINE_URL, { repoData: repoData, symbols: symbols });
-      } catch (e) {
-        if (e.message && e.message.indexOf('429') !== -1) {
-          console.log('  Rate limited — waiting 30s then retrying...');
-          await delay(30000);
+      var maxRetries = 3;
+      var attempt = 0;
+      while (true) {
+        try {
           reading = await post(DIVINE_URL, { repoData: repoData, symbols: symbols });
-        } else {
-          throw e;
+          break; // success
+        } catch (e) {
+          attempt++;
+          if (e.message && e.message.indexOf('429') !== -1 && attempt < maxRetries) {
+            console.log('  Rate limited — waiting 60s then retrying (attempt ' + attempt + '/' + maxRetries + ')...');
+            await delay(60000);
+          } else {
+            throw e;
+          }
         }
       }
       console.log('  Reading: OK — "' + reading.verdict + '"');
@@ -235,10 +240,10 @@ async function main() {
       console.error('  Skipping ' + repoSlug);
     }
 
-    // Wait 15s between repos to respect Gemini free tier rate limit
+    // Wait 60s between repos to respect Gemini free tier rate limit
     if (i < REPOS.length - 1) {
-      console.log('  Waiting 15s for Gemini rate limit...\n');
-      await delay(15000);
+      console.log('  Waiting 60s for Gemini rate limit...\n');
+      await delay(60000);
     }
   }
 
