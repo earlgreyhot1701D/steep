@@ -365,7 +365,7 @@ body::after {
   font-family: 'Cormorant Garamond', serif;
   font-size: 18px;
   font-style: italic;
-  color: var(--ink-dim);
+  color: var(--ink-mid);
   margin-bottom: 12px;
 }
 
@@ -390,7 +390,7 @@ body::after {
 .inp-label {
   font-family: 'Press Start 2P', monospace;
   font-size: 8px;
-  color: var(--ink-dim);
+  color: var(--ink-mid);
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 10px;
@@ -462,7 +462,7 @@ body::after {
 .sec-label {
   font-family: 'Press Start 2P', monospace;
   font-size: 8px;
-  color: var(--ink-dim);
+  color: var(--ink-mid);
   letter-spacing: 3px;
   text-transform: uppercase;
   margin-bottom: 12px;
@@ -547,8 +547,8 @@ body::after {
 
 .pc-repo {
   font-family: 'VT323', monospace;
-  font-size: 13px;
-  color: var(--ink-dim);
+  font-size: 15px;
+  color: var(--ink-mid);
   margin-bottom: 6px;
 }
 
@@ -642,8 +642,8 @@ body::after {
 
 .pc-snippet {
   font-family: 'VT323', monospace;
-  font-size: 14px;
-  color: var(--ink-dim);
+  font-size: 16px;
+  color: var(--ink-mid);
   line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -699,8 +699,8 @@ body::after {
 
 .rp-repo {
   font-family: 'VT323', monospace;
-  font-size: 15px;
-  color: var(--ink-dim);
+  font-size: 17px;
+  color: var(--ink-mid);
   text-align: center;
   margin-bottom: 4px;
 }
@@ -841,8 +841,8 @@ body::after {
 
 .sym-legend-text {
   font-family: 'VT323', monospace;
-  font-size: 15px;
-  color: var(--ink-mid);
+  font-size: 16px;
+  color: var(--ink);
   line-height: 1.4;
 }
 
@@ -854,8 +854,8 @@ body::after {
 }
 
 .sym-legend-trigger {
-  font-size: 13px;
-  color: var(--ink-dim);
+  font-size: 14px;
+  color: var(--ink-mid);
   font-style: italic;
   display: block;
   margin-top: 1px;
@@ -889,9 +889,9 @@ body::after {
 
 .rp-section-text {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 17px;
-  color: var(--ink-mid);
-  line-height: 1.6;
+  font-size: 18px;
+  color: var(--ink);
+  line-height: 1.7;
 }
 
 /* Brew rating */
@@ -948,8 +948,8 @@ body::after {
 
 .rp-lucky-text {
   font-family: 'VT323', monospace;
-  font-size: 17px;
-  color: var(--ink-mid);
+  font-size: 18px;
+  color: var(--ink);
   font-style: italic;
 }
 
@@ -998,8 +998,8 @@ body::after {
 
 .loading-msg {
   font-family: 'VT323', monospace;
-  font-size: 20px;
-  color: var(--ink-dim);
+  font-size: 22px;
+  color: var(--ink-mid);
   animation: blink 1.5s steps(2) infinite;
   height: 28px;
 }
@@ -1097,8 +1097,8 @@ body::after {
 
 .grimoire-repo {
   font-family: 'VT323', monospace;
-  font-size: 14px;
-  color: var(--ink-dim);
+  font-size: 16px;
+  color: var(--ink-mid);
 }
 
 .grimoire-verdict {
@@ -1111,8 +1111,8 @@ body::after {
 
 .grimoire-meta {
   font-family: 'VT323', monospace;
-  font-size: 13px;
-  color: var(--ink-faint);
+  font-size: 14px;
+  color: var(--ink-dim);
   display: flex;
   justify-content: space-between;
 }
@@ -1132,8 +1132,8 @@ body::after {
 
 .footer {
   font-family: 'VT323', monospace;
-  font-size: 13px;
-  color: var(--ink-faint);
+  font-size: 15px;
+  color: var(--ink-dim);
   letter-spacing: 2px;
   text-align: center;
   padding: 20px 0 12px;

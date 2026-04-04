@@ -380,12 +380,19 @@ document.getElementById('divine-btn').addEventListener('click', function () {
       // Select symbols deterministically — symbols.js
       var symbols = selectSymbols(data);
 
-      // STUB: Gemini call (Block 4)
-      // When implemented: callDivine(data, symbols) → renderReading(geminiResponse)
-      // For now: build a mock reading from real repo data + selected symbols
-      var mockReading = buildMockReading(data, symbols);
-      renderReading(mockReading);   // reading.js
-      showPane('reading');
+      // Call /api/divine — Gemini serverless function
+      return callDivine(data, symbols)
+        .then(function (reading) {
+          renderReading(reading);   // reading.js
+          showPane('reading');
+        })
+        .catch(function (err) {
+          console.error('callDivine failed:', err);
+          // Fallback: show mock reading if Gemini is unavailable
+          var mockReading = buildMockReading(data, symbols);
+          renderReading(mockReading);
+          showPane('reading');
+        });
     })
     .catch(function (err) {
       stopLoadingMessages();
@@ -393,14 +400,49 @@ document.getElementById('divine-btn').addEventListener('click', function () {
       if (_clientLeaves > 0) setDivineEnabled(true);
       console.error('fetchRepoData failed:', err);
       showPane('418');
-    });
-});
+    });});
+
+/**
+ * callDivine(repoData, symbols)
+ * POSTs to /api/divine (Gemini serverless function).
+ * Returns a reading object matching the showcase.json shape.
+ * Falls back to buildMockReading() if the call fails.
+ */
+function callDivine(repoData, symbols) {
+  return fetch('/api/divine', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ repoData: repoData, symbols: symbols })
+  })
+  .then(function (r) {
+    if (!r.ok) throw new Error('divine API returned ' + r.status);
+    return r.json();
+  })
+  .then(function (reading) {
+    // Merge Gemini's symbol interpretations with the icon/meaning from selectSymbols
+    if (Array.isArray(reading.symbols)) {
+      reading.symbols = reading.symbols.map(function (gs, i) {
+        var original = symbols[i] || {};
+        return {
+          name:           gs.name    || original.name    || '',
+          icon:           original.icon    || '',
+          meaning:        original.meaning || '',
+          trigger:        original.trigger || '',
+          interpretation: gs.interpretation || ''
+        };
+      });
+    } else {
+      reading.symbols = symbols;
+    }
+    reading.repo = repoData.full_name;
+    return reading;
+  });
+}
 
 /**
  * buildMockReading(repoData, symbols)
- * Constructs a reading object from real GitHub data + selected symbols.
- * Used until Gemini (Block 4) is wired in.
- * The past/present/future text is templated from real data fields.
+ * Fallback reading used when /api/divine is unavailable.
+ * Constructs templated text from real repo data fields.
  */
 function buildMockReading(d, symbols) {
   var age = d.age_days > 365
