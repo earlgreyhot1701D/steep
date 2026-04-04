@@ -134,18 +134,42 @@ function renderReading(reading) {
   var shareBtn = makeEl('button', 'reading-btn', 'SHARE CARD');
   shareBtn.id = 'share-btn';
   shareBtn.addEventListener('click', function () {
-    var text = reading.repo + '\n\n'
-      + '\u201C' + reading.verdict + '\u201D\n\n'
-      + 'Brew rating: ' + ratingPots(reading.brew_rating) + '\n'
-      + 'Lucky commit: \u201C' + reading.lucky_commit + '\u201D\n\n'
-      + 'steep.vercel.app';
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(text).then(function () {
-        shareBtn.textContent = 'COPIED \u2713';
+    populateShareCard(reading);
+    shareBtn.textContent = 'GENERATING...';
+    shareBtn.disabled = true;
+
+    // Give the DOM a tick to render the hidden card before capture
+    setTimeout(function () {
+      var card = document.getElementById('share-card');
+      if (typeof html2canvas === 'undefined' || !card) {
+        // Fallback: copy text to clipboard
+        copyReadingText(reading, shareBtn);
+        return;
+      }
+
+      html2canvas(card, {
+        width:       1200,
+        height:      630,
+        scale:       1,
+        useCORS:     true,
+        logging:     false,
+        backgroundColor: '#1a1510'
+      }).then(function (canvas) {
+        canvas.toBlob(function (blob) {
+          if (!blob) { copyReadingText(reading, shareBtn); return; }
+          var url  = URL.createObjectURL(blob);
+          var link = document.createElement('a');
+          link.download = 'steep-' + (reading.repo || 'reading').replace(/\//g, '-') + '.png';
+          link.href = url;
+          link.click();
+          URL.revokeObjectURL(url);
+          shareBtn.textContent = 'CARD SAVED \u2713';
+          shareBtn.disabled = false;
+        }, 'image/png');
       }).catch(function () {
-        shareBtn.textContent = 'COPY FAILED';
+        copyReadingText(reading, shareBtn);
       });
-    }
+    }, 100);
   });
 
   var saveBtn = makeEl('button', 'reading-btn', 'SAVE TO GRIMOIRE');
@@ -274,9 +298,60 @@ function renderGrimoire(showcaseData) {
   });
 }
 
-// STUB: Share card via html2canvas (Block 8)
-// When implemented: capture #share-card-hidden as PNG, trigger download
-// See: AGENT-DIRECTIVE.md, Shareable Card section
+/* ============================================================
+   SHARE CARD HELPERS
+   ============================================================ */
+
+/**
+ * populateShareCard(reading)
+ * Fills the hidden #share-card DOM element with reading data
+ * before html2canvas captures it.
+ */
+function populateShareCard(reading) {
+  var repo    = document.getElementById('sc-repo');
+  var syms    = document.getElementById('sc-symbols');
+  var verdict = document.getElementById('sc-verdict');
+  var rating  = document.getElementById('sc-rating');
+  var commit  = document.getElementById('sc-commit');
+  if (!repo) return;
+
+  repo.textContent    = reading.repo || '';
+  verdict.textContent = '\u201C' + (reading.verdict || '') + '\u201D';
+  rating.textContent  = ratingPots(reading.brew_rating || 0);
+  commit.textContent  = '\u201C' + (reading.lucky_commit || '') + '\u201D';
+
+  syms.innerHTML = '';
+  (reading.symbols || []).forEach(function (s) {
+    var tag = document.createElement('span');
+    tag.className   = 'sc-sym-tag';
+    tag.textContent = (s.icon || '') + ' ' + (s.name || '');
+    syms.appendChild(tag);
+  });
+}
+
+/**
+ * copyReadingText(reading, btn)
+ * Clipboard fallback when html2canvas is unavailable.
+ */
+function copyReadingText(reading, btn) {
+  var text = reading.repo + '\n\n'
+    + '\u201C' + reading.verdict + '\u201D\n\n'
+    + 'Brew rating: ' + ratingPots(reading.brew_rating) + '\n'
+    + 'Lucky commit: \u201C' + reading.lucky_commit + '\u201D\n\n'
+    + 'steep418.vercel.app';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function () {
+      btn.textContent = 'COPIED \u2713';
+      btn.disabled    = false;
+    }).catch(function () {
+      btn.textContent = 'COPY FAILED';
+      btn.disabled    = false;
+    });
+  } else {
+    btn.textContent = 'COPY FAILED';
+    btn.disabled    = false;
+  }
+}
 
 // Node.js compatibility — does not affect browser behavior
 if (typeof module !== 'undefined') {
