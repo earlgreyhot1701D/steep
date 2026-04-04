@@ -159,7 +159,7 @@ body::after {
   align-items: center;
   justify-content: center;
   z-index: 200;
-  animation: crashSequence 5.5s forwards;
+  animation: crashSequence 3.5s forwards;
 }
 
 /* When JS skips the crash */
@@ -268,7 +268,7 @@ body::after {
 #app {
   opacity: 0;
   animation: appReveal 1s ease forwards;
-  animation-delay: 3.8s;
+  animation-delay: 3.2s;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
