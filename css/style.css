@@ -1445,3 +1445,74 @@ body::after {
     height: 86px;
   }
 }
+
+/* ── Brand description ── */
+.brand-desc {
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+  color: var(--ink-dim);
+  margin-bottom: 16px;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.4;
+}
+
+/* ── WTF section ── */
+.wtf-section {
+  text-align: center;
+  padding: 16px 0 8px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.wtf-toggle {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: var(--amber);
+  background: none;
+  border: 1px dashed var(--amber-dim);
+  padding: 6px 14px;
+  cursor: pointer;
+  letter-spacing: 2px;
+}
+
+.wtf-toggle:hover {
+  background: var(--btn-hover-bg);
+  color: var(--btn-hover-text);
+}
+
+.wtf-body {
+  text-align: left;
+  margin-top: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 16px;
+  position: relative;
+}
+
+.wtf-body::before {
+  content: '';
+  position: absolute;
+  top: 3px; left: 3px; right: 3px; bottom: 3px;
+  border: 1px solid var(--card-inner);
+  pointer-events: none;
+}
+
+.wtf-body p {
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+  color: var(--ink-mid);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.wtf-body p:last-child { margin-bottom: 0; }
+
+/* ── Symbol legend "Appears because" label ── */
+.sym-legend-because {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+  color: var(--teal);
+  letter-spacing: 0.5px;
+}

@@ -86,7 +86,9 @@ function renderReading(reading) {
     var bold = makeEl('b', null, s.name);
     var trigger = makeEl('span', 'sym-legend-trigger', s.trigger);
     txt.appendChild(bold);
-    txt.appendChild(document.createTextNode(' ' + s.meaning + '.'));
+    txt.appendChild(document.createTextNode(' \u2014 ' + s.meaning + '. '));
+    var becauseLabel = makeEl('span', 'sym-legend-because', 'Appears because: ');
+    txt.appendChild(becauseLabel);
     txt.appendChild(trigger);
     row.appendChild(ico);
     row.appendChild(txt);

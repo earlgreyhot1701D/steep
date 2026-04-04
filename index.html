@@ -75,6 +75,7 @@
 
         <h1 class="brand">STEEP</h1>
         <p class="brand-sub">Your repo's fortune, steeped in truth.</p>
+        <p class="brand-desc">Paste a GitHub repo. Receive a dramatic, wildly specific, and entirely useless tea leaf reading of your codebase.</p>
 
         <div class="inp-block">
           <div class="inp-label">Paste your repository</div>
@@ -158,6 +159,16 @@
           </div>
         </div>
         <button class="grimoire-back" id="grimoire-back">&#x2190; RETURN TO THE LEAVES</button>
+      </div>
+    </div>
+
+    <div class="wtf-section" id="wtf-section">
+      <button class="wtf-toggle" id="wtf-toggle">WTF IS THIS?</button>
+      <div class="wtf-body" id="wtf-body" hidden>
+        <p>Steep performs tasseography (tea leaf reading) on public GitHub repositories. It fetches your repo's commit history, file tree, languages, and metadata, then selects traditional tea leaf symbols based on what it finds.</p>
+        <p>Each symbol — Mountain, Skull, Heart, Snake — comes from real tasseography traditions. The triggers are deterministic: your repo earns its symbols through its actual data.</p>
+        <p>Then Madame Steep, our AI fortune teller, delivers a dramatic reading of your codebase's past, present, and future.</p>
+        <p>It is a teapot (RFC 2324). It cannot brew coffee. Do not ask it for real code review.</p>
       </div>
     </div>
 

@@ -522,6 +522,15 @@ document.getElementById('grimoire-back').addEventListener('click', function () {
 });
 
 /* ============================================================
+   WTF TOGGLE
+   ============================================================ */
+document.getElementById('wtf-toggle').addEventListener('click', function () {
+  var body = document.getElementById('wtf-body');
+  body.hidden = !body.hidden;
+  this.textContent = body.hidden ? 'WTF IS THIS?' : 'GOT IT';
+});
+
+/* ============================================================
    INIT — load showcase.json, render carousel
    ============================================================ */
 // Try fetch first (works on server), fall back to inline data (works locally)
