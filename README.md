@@ -131,18 +131,6 @@ Google AI is embedded throughout Steep, from the initial concept through the des
 
 ---
 
-## Gemini Usage
-
-Steep uses the Google Gemini API as the voice of Madame Steep. The integration goes beyond "send text, get text back":
-
-**Persona engineering.** The system prompt is 80+ lines defining Madame Steep's character, rules, and constraints. She must reference specific repo data (file names, commit messages, language percentages). She must weave tea metaphors naturally. She must never give useful advice. She must never be cruel to the developer. She roasts the code, not the coder.
-
-**Structured output.** Gemini returns valid JSON with seven fields (symbols, past, present, future, brew_rating, lucky_commit, verdict). The client parses and renders each field independently. If Gemini wraps the response in markdown code fences (it often does), the server strips them before parsing.
-
-**Deterministic + creative split.** Symbol selection is deterministic (client-side, no AI involved). The creative interpretation is Gemini's job. This means the same repo always gets the same symbols, but each reading is a unique narrative. The data is consistent. The storytelling is not.
-
----
-
 ## Running Locally
 
 ```bash
