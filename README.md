@@ -2,6 +2,14 @@
 
 **Your repo's fortune, steeped in truth.** 🫖
 
+[![Steep Banner](assets/Steep%20Banner.jpg)](https://steep418.vercel.app)
+
+---
+
+## Demo
+
+[![Watch the demo](https://img.youtube.com/vi/fW0KYFcC7Aw/maxresdefault.jpg)](https://youtu.be/fW0KYFcC7Aw)
+
 ---
 
 In 1998, Larry Masinter wrote RFC 2324 as an April Fools' joke. It defined a protocol for controlling coffee pots over HTTP and introduced status code 418: "I'm a teapot." The spec notes that the response body "MAY be short and stout."
@@ -92,6 +100,24 @@ When you first open Steep, you see what looks like a browser crash:
 > `ERR_TEAPOT_418 :: STEEP_DIVINATION_FAULT`
 
 It's not a bug. It's the opening act.
+
+![Crash Screen](assets/Crash%20Screen.png)
+
+---
+
+## Screenshots
+
+| Home | Reading |
+|------|---------|
+| ![Home Page](assets/Home%20Page.png) | ![Memoria Clew Reading](assets/Memoria%20Clew%20Reading.png) |
+
+| Symbol Guide | About |
+|-------------|-------|
+| ![Symbol Guide](assets/Symbol%20Guide.png) | ![About](assets/About.png) |
+
+| WTF Is This | Fortune Saved |
+|-------------|---------------|
+| ![WTF](assets/WTF%20.png) | ![Fortune Saved](assets/Fortune%20Saved.png) |
 
 ---
 
