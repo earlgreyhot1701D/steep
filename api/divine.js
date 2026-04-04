@@ -255,7 +255,7 @@ File tree sample: ${safeRepo.file_tree.slice(0, 10).join(', ') || 'empty'}
 ASSIGNED SYMBOLS:
 ${safeSymbols.map(s => `- ${s.name} (${s.meaning}): triggered by "${s.trigger}"`).join('\n')}
 
-Deliver the reading now.`;
+Deliver the reading now. Respond ONLY with valid JSON. No markdown, no prose outside the JSON object.`;
 
   // Call Gemini
   try {
@@ -265,7 +265,7 @@ Deliver the reading now.`;
       body:    JSON.stringify({
         system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
         contents:           [{ role: 'user', parts: [{ text: userMessage }] }],
-        generationConfig:   { temperature: 1.4, maxOutputTokens: 2048 }
+        generationConfig:   { temperature: 1.4, maxOutputTokens: 4096 }
       })
     });
 
