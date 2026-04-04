@@ -111,6 +111,26 @@ It's not a bug. It's the opening act.
 
 ---
 
+## Google AI Usage
+
+Google AI is embedded throughout Steep, from the initial concept through the design process to the live product.
+
+**Gemini Chat (ideation).** The concept for Steep started in a Gemini conversation. We explored Ig Nobel Prize winners for "delightfully useless" inspiration, brainstormed dead code reanimation tools, commit quality scanners based on astrology, and eventually landed on tasseography for GitHub repos when we realized the challenge prizes were teapots and the Larry Masinter category was about a tea/coffee protocol. Gemini helped connect those dots.
+
+**Google Stitch (UI design).** The visual direction was explored across multiple rounds in Google Stitch. Stitch generated complete page mockups with Material Design 3 color token systems, full Tailwind configurations, and multi-page layouts. We explored dark séance dashboards, warm tea shop aesthetics, and editorial layouts before landing on the dusty blue pixel art direction. Stitch's ability to generate cohesive design systems — not just mockups but actual color tokens, font stacks, and component patterns — accelerated the design phase significantly.
+
+**Gemini 2.5 Flash API (the product).** Steep calls the Gemini API in production as the voice of Madame Steep, the AI fortune teller. The integration is more than a simple text generation call:
+
+- **Persona engineering.** The system prompt is 80+ lines defining Madame Steep's character, voice rules, and constraints. She must reference specific repo data (file names, commit messages, language percentages). She must weave tea metaphors into every section. She must never give useful advice. She must never be cruel to the developer. She roasts the code, not the coder. She has a banned word list to prevent generic AI-sounding output.
+
+- **Structured output.** Gemini returns valid JSON with seven fields (symbols, past, present, future, brew_rating, lucky_commit, verdict). The client parses and renders each field independently. The server strips markdown code fences before parsing because Gemini likes to wrap JSON in them.
+
+- **Deterministic + creative split.** Symbol selection is deterministic (client-side, no AI). The creative interpretation is Gemini's job. Same repo always gets the same symbols, but each reading is a unique narrative. The data is consistent. The storytelling is not. This architecture means Gemini's creativity is channeled through a structured framework rather than generating everything from scratch.
+
+- **Narrative voice.** Gemini doesn't summarize repo data. It tells a story. Each reading has a past, present, and future that feels like sitting across from a fortune teller who happens to know what a git log is. The prompt engineering focused on getting Gemini to be specific, dramatic, and funny rather than generic and verbose.
+
+---
+
 ## Gemini Usage
 
 Steep uses the Google Gemini API as the voice of Madame Steep. The integration goes beyond "send text, get text back":
