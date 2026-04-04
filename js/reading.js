@@ -321,7 +321,7 @@ function populateShareCard(reading) {
   var verdict = document.getElementById('sc-verdict');
   var rating  = document.getElementById('sc-rating');
   var commit  = document.getElementById('sc-commit');
-  var interps = document.getElementById('sc-interpretations');
+  var interps = document.getElementById('sc-interpretations'); // may be null
   if (!repo) return;
 
   repo.textContent    = reading.repo || '';
@@ -329,25 +329,25 @@ function populateShareCard(reading) {
   rating.textContent  = ratingPots(reading.brew_rating || 0);
   commit.textContent  = '\u201C' + (reading.lucky_commit || '') + '\u201D';
 
-  syms.innerHTML    = '';
-  interps.innerHTML = '';
+  syms.innerHTML = '';
+  if (interps) interps.innerHTML = '';
 
   (reading.symbols || []).forEach(function (s) {
-    // Symbol tag
     var tag = document.createElement('span');
     tag.className   = 'sc-sym-tag';
     tag.textContent = (s.icon || '') + ' ' + (s.name || '');
     syms.appendChild(tag);
 
-    // Interpretation row
-    var row  = document.createElement('div');
-    row.className = 'sc-interp-row';
-    var name = document.createElement('span');
-    name.className   = 'sc-interp-name';
-    name.textContent = (s.name || '') + ': ';
-    row.appendChild(name);
-    row.appendChild(document.createTextNode(s.trigger || s.meaning || ''));
-    interps.appendChild(row);
+    if (interps) {
+      var row  = document.createElement('div');
+      row.className = 'sc-interp-row';
+      var name = document.createElement('span');
+      name.className   = 'sc-interp-name';
+      name.textContent = (s.name || '') + ': ';
+      row.appendChild(name);
+      row.appendChild(document.createTextNode(s.trigger || s.meaning || ''));
+      interps.appendChild(row);
+    }
   });
 }
 
