@@ -186,9 +186,8 @@ Deliver the reading now.`;
         system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
         contents: [{ role: 'user', parts: [{ text: userMessage }] }],
         generationConfig: {
-          temperature:     1.0,
-          maxOutputTokens: 1024,
-          responseMimeType: 'application/json'
+          temperature:     1.4,
+          maxOutputTokens: 2048
         }
       })
     });
