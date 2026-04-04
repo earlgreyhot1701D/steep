@@ -131,6 +131,10 @@ function renderReading(reading) {
   lucky.appendChild(luckyText);
   pane.appendChild(lucky);
 
+  // ── Closing coda ──
+  var coda = makeEl('div', 'rp-coda', 'This has been a reading from a teapot. You came here for code review. The leaves had other plans.');
+  pane.appendChild(coda);
+
   // ── Action buttons ──
   var actions = makeEl('div', 'rp-actions');
 

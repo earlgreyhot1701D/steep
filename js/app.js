@@ -521,13 +521,26 @@ document.getElementById('grimoire-back').addEventListener('click', function () {
   showPane('cards');
 });
 
-/* ============================================================
-   WTF TOGGLE
-   ============================================================ */
+/* ── WTF toggle in app.js ── */
 document.getElementById('wtf-toggle').addEventListener('click', function () {
   var body = document.getElementById('wtf-body');
   body.hidden = !body.hidden;
   this.textContent = body.hidden ? 'WTF IS THIS?' : 'GOT IT';
+});
+
+/* ============================================================
+   ABOUT OVERLAY
+   ============================================================ */
+document.getElementById('about-btn').addEventListener('click', function () {
+  document.getElementById('about-overlay').hidden = false;
+});
+
+document.getElementById('about-close').addEventListener('click', function () {
+  document.getElementById('about-overlay').hidden = true;
+});
+
+document.getElementById('about-overlay').addEventListener('click', function (e) {
+  if (e.target === this) this.hidden = true;
 });
 
 /* ============================================================

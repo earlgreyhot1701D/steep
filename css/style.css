@@ -1525,3 +1525,127 @@ body::after {
   text-align: center;
   margin-bottom: 14px;
 }
+
+/* ── Reading coda ── */
+.rp-coda {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--ink-faint);
+  text-align: center;
+  margin: 20px 0 16px;
+  line-height: 1.5;
+}
+
+/* ── About button (fixed top-right) ── */
+.about-btn {
+  position: fixed;
+  top: 12px;
+  right: 16px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+  color: var(--amber);
+  background: none;
+  border: 1px solid var(--amber-dim);
+  padding: 5px 10px;
+  cursor: pointer;
+  letter-spacing: 2px;
+  z-index: 50;
+}
+
+.about-btn:hover {
+  background: var(--btn-hover-bg);
+  color: var(--btn-hover-text);
+}
+
+/* ── About overlay ── */
+.about-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(42,46,56,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+}
+
+.about-box {
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+  padding: 28px 24px;
+  max-width: 420px;
+  width: 90%;
+  position: relative;
+  text-align: center;
+}
+
+.about-box::before {
+  content: '';
+  position: absolute;
+  top: 4px; left: 4px; right: 4px; bottom: 4px;
+  border: 1px solid var(--card-inner);
+  pointer-events: none;
+}
+
+.about-close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-family: 'VT323', monospace;
+  font-size: 24px;
+  color: var(--ink-dim);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.about-close:hover { color: var(--red); }
+
+.about-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: var(--amber);
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+
+.about-body p {
+  font-family: 'VT323', monospace;
+  font-size: 17px;
+  color: var(--ink-mid);
+  line-height: 1.5;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.about-body p:last-child { margin-bottom: 0; }
+
+.about-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.about-links a {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: var(--teal);
+  text-decoration: none;
+  border: 1px solid var(--teal);
+  padding: 5px 12px;
+  letter-spacing: 1px;
+}
+
+.about-links a:hover {
+  background: var(--btn-hover-bg);
+  color: var(--btn-hover-text);
+}
+
+.about-attr {
+  font-family: 'VT323', monospace;
+  font-size: 13px;
+  color: var(--ink-faint);
+  margin-top: 14px;
+  letter-spacing: 2px;
+}
