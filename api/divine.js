@@ -5,6 +5,43 @@
 const GEMINI_ENDPOINT =
   'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 
+const ALLOWED_ORIGIN = 'https://steep418.vercel.app';
+
+/* ============================================================
+   IN-MEMORY RATE LIMITER
+   Max 10 requests per minute per IP.
+   Resets on cold start — acceptable for hackathon.
+   ============================================================ */
+const rateLimitMap = new Map();
+const RATE_LIMIT_MAX = 10;
+const RATE_LIMIT_WINDOW_MS = 60 * 1000;
+
+function isRateLimited(ip) {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip) || { count: 0, windowStart: now };
+
+  if (now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
+    // Window expired — reset
+    rateLimitMap.set(ip, { count: 1, windowStart: now });
+    return false;
+  }
+
+  if (entry.count >= RATE_LIMIT_MAX) return true;
+
+  entry.count++;
+  rateLimitMap.set(ip, entry);
+  return false;
+}
+
+/* ============================================================
+   STUB: Production alerting
+   When implemented: alert on 5+ consecutive Gemini failures
+   See: Vercel monitoring or external service like PagerDuty
+   ============================================================ */
+
+/* ============================================================
+   SYSTEM PROMPT — Madame Steep
+   ============================================================ */
 const SYSTEM_PROMPT = `You are Madame Steep, an ancient and dramatic digital tasseographer who reads
 the tea leaves of GitHub repositories. You trained in the mystic arts at a
 prestigious academy (you won't say which) and pivoted to software divination
@@ -86,20 +123,58 @@ One sentence. The TL;DR fortune. This is what goes on the shareable card.
     "verdict": "..."
   }`;
 
+/* ============================================================
+   CORS HEADERS
+   ============================================================ */
+function setCorsHeaders(res, origin) {
+  // Allow the production domain and localhost for dev
+  const allowed = [ALLOWED_ORIGIN, 'http://localhost:3000', 'http://127.0.0.1:3000'];
+  if (allowed.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  } else {
+    res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Max-Age', '86400');
+}
+
+/* ============================================================
+   HANDLER
+   ============================================================ */
 export default async function handler(req, res) {
+  const startTime = Date.now();
+  const origin    = req.headers.origin || '';
+  const ip        = req.headers['x-forwarded-for']?.split(',')[0]?.trim()
+                 || req.socket?.remoteAddress
+                 || 'unknown';
+
+  setCorsHeaders(res, origin);
+
+  // Handle OPTIONS preflight
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
+
   // Only accept POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // Validate API key is configured
+  // Server-side rate limit
+  if (isRateLimited(ip)) {
+    console.log(`[divine] RATE_LIMITED ip=${ip}`);
+    return res.status(429).json({ error: 'The leaves need rest.' });
+  }
+
+  // Validate API key
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    console.error('GEMINI_API_KEY not set');
+    console.error('[divine] GEMINI_API_KEY not set');
     return res.status(500).json({ error: 'Server misconfiguration' });
   }
 
-  // Parse and validate request body
+  // Parse body
   let body;
   try {
     body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
@@ -109,11 +184,21 @@ export default async function handler(req, res) {
 
   const { repoData, symbols } = body || {};
 
-  if (!repoData || !symbols || !Array.isArray(symbols)) {
-    return res.status(400).json({ error: 'Missing repoData or symbols' });
+  // Input validation
+  if (!repoData || typeof repoData !== 'object') {
+    return res.status(400).json({ error: 'Missing or invalid repoData' });
+  }
+  if (typeof repoData.full_name !== 'string' || repoData.full_name.length > 200) {
+    return res.status(400).json({ error: 'Invalid repoData.full_name' });
+  }
+  if (!Array.isArray(symbols) || symbols.length < 1 || symbols.length > 6) {
+    return res.status(400).json({ error: 'symbols must be an array of 1-6 items' });
   }
 
-  // Sanitize: only pass the fields Gemini needs — no raw user input
+  const repoName    = repoData.full_name;
+  const symbolCount = symbols.length;
+
+  // Sanitize inputs
   const safeRepo = {
     full_name:        String(repoData.full_name        || '').slice(0, 200),
     description:      String(repoData.description      || '').slice(0, 500),
@@ -129,19 +214,16 @@ export default async function handler(req, res) {
     has_roadmap:      Boolean(repoData.has_roadmap),
     readme_length:    Number(repoData.readme_length)    || 0,
     languages:        Array.isArray(repoData.languages)
-                        ? repoData.languages.slice(0, 5).map(function(l) {
-                            return { name: String(l.name || '').slice(0, 50), pct: Number(l.pct) || 0 };
-                          })
+                        ? repoData.languages.slice(0, 5).map(l => ({
+                            name: String(l.name || '').slice(0, 50),
+                            pct:  Number(l.pct)  || 0
+                          }))
                         : [],
     recent_commits:   Array.isArray(repoData.recent_commits)
-                        ? repoData.recent_commits.slice(0, 10).map(function(m) {
-                            return String(m).slice(0, 100);
-                          })
+                        ? repoData.recent_commits.slice(0, 10).map(m => String(m).slice(0, 100))
                         : [],
     file_tree:        Array.isArray(repoData.file_tree)
-                        ? repoData.file_tree.slice(0, 50).map(function(p) {
-                            return String(p).slice(0, 100);
-                          })
+                        ? repoData.file_tree.slice(0, 50).map(p => String(p).slice(0, 100))
                         : [],
     default_branch:   String(repoData.default_branch   || '').slice(0, 50),
     created_at:       String(repoData.created_at        || '').slice(0, 30),
@@ -150,15 +232,13 @@ export default async function handler(req, res) {
     merge_commit_pct: Number(repoData.merge_commit_pct) || 0
   };
 
-  const safeSymbols = symbols.slice(0, 5).map(function(s) {
-    return {
-      name:    String(s.name    || '').slice(0, 50),
-      meaning: String(s.meaning || '').slice(0, 100),
-      trigger: String(s.trigger || '').slice(0, 200)
-    };
-  });
+  const safeSymbols = symbols.slice(0, 6).map(s => ({
+    name:    String(s.name    || '').slice(0, 50),
+    meaning: String(s.meaning || '').slice(0, 100),
+    trigger: String(s.trigger || '').slice(0, 200)
+  }));
 
-  // Build the user message
+  // Build user message
   const userMessage = `Repository: ${safeRepo.full_name}
 Description: ${safeRepo.description}
 Created: ${safeRepo.created_at} (${safeRepo.age_days} days ago)
@@ -180,68 +260,67 @@ Deliver the reading now.`;
   // Call Gemini
   try {
     const geminiRes = await fetch(`${GEMINI_ENDPOINT}?key=${apiKey}`, {
-      method: 'POST',
+      method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+      body:    JSON.stringify({
         system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
-        contents: [{ role: 'user', parts: [{ text: userMessage }] }],
-        generationConfig: {
-          temperature:     1.4,
-          maxOutputTokens: 2048
-        }
+        contents:           [{ role: 'user', parts: [{ text: userMessage }] }],
+        generationConfig:   { temperature: 1.4, maxOutputTokens: 2048 }
       })
     });
 
     if (!geminiRes.ok) {
       const errText = await geminiRes.text();
-      console.error('Gemini error:', geminiRes.status, errText);
+      const ms = Date.now() - startTime;
+      console.log(`[divine] FAIL repo=${repoName} symbols=${symbolCount} status=${geminiRes.status} ms=${ms}`);
       return res.status(502).json({ error: 'Gemini API error', status: geminiRes.status });
     }
 
     const geminiJson = await geminiRes.json();
+    const rawText    = geminiJson?.candidates?.[0]?.content?.parts?.[0]?.text;
 
-    // Extract the text content from Gemini's response structure
-    const rawText = geminiJson?.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!rawText) {
-      console.error('Unexpected Gemini response shape:', JSON.stringify(geminiJson));
+      const ms = Date.now() - startTime;
+      console.log(`[divine] FAIL repo=${repoName} symbols=${symbolCount} reason=empty_response ms=${ms}`);
       return res.status(502).json({ error: 'Unexpected Gemini response' });
     }
 
-    // Parse and validate the reading JSON
+    // Strip markdown fences if present
+    let text = rawText;
+    text = text.replace(/^```json\s*/i, '');
+    text = text.replace(/^```\s*/i, '');
+    text = text.replace(/\s*```$/i, '');
+    text = text.trim();
+
     let reading;
     try {
-      reading = JSON.parse(rawText);
+      reading = JSON.parse(text);
     } catch (e) {
-      // Strip markdown code fences if present
-      let text = rawText;
-      text = text.replace(/^```json\s*/i, '');
-      text = text.replace(/^```\s*/i, '');
-      text = text.replace(/\s*```$/i, '');
-      text = text.trim();
-      try {
-        reading = JSON.parse(text);
-      } catch (e2) {
-        console.error('Could not parse Gemini JSON:', rawText.slice(0, 200));
-        return res.status(502).json({ error: 'Gemini returned invalid JSON' });
-      }
+      const ms = Date.now() - startTime;
+      console.log(`[divine] FAIL repo=${repoName} symbols=${symbolCount} reason=json_parse ms=${ms}`);
+      return res.status(502).json({ error: 'Gemini returned invalid JSON' });
     }
 
     // Validate required fields
     const required = ['symbols', 'past', 'present', 'future', 'brew_rating', 'lucky_commit', 'verdict'];
     for (const field of required) {
       if (reading[field] === undefined) {
-        console.error('Missing field in Gemini response:', field);
+        const ms = Date.now() - startTime;
+        console.log(`[divine] FAIL repo=${repoName} symbols=${symbolCount} reason=missing_field:${field} ms=${ms}`);
         return res.status(502).json({ error: 'Incomplete reading from Gemini', missing: field });
       }
     }
 
-    // Clamp brew_rating to 1-5
     reading.brew_rating = Math.min(5, Math.max(1, Number(reading.brew_rating) || 3));
+
+    const ms = Date.now() - startTime;
+    console.log(`[divine] OK repo=${repoName} symbols=${symbolCount} brew=${reading.brew_rating} ms=${ms}`);
 
     return res.status(200).json(reading);
 
   } catch (err) {
-    console.error('divine handler error:', err);
+    const ms = Date.now() - startTime;
+    console.log(`[divine] FAIL repo=${repoName} symbols=${symbolCount} reason=exception ms=${ms} err=${err.message}`);
     return res.status(500).json({ error: 'Internal server error' });
   }
 }
