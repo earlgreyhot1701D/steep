@@ -543,6 +543,86 @@ document.getElementById('about-overlay').addEventListener('click', function (e) 
 });
 
 /* ============================================================
+   HOME BUTTON
+   ============================================================ */
+document.getElementById('home-btn').addEventListener('click', function () {
+  showPane('cards');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+/* ============================================================
+   SYMBOL GUIDE
+   ============================================================ */
+var SYMBOL_GUIDE_TEXT = {
+  'ACORN':    'Stars-to-age ratio is unusually high',
+  'ANCHOR':   'Consistent commits over 6+ months',
+  'APPLE':    'README exceeds 500 characters',
+  'BIRD':     'Pushed within the last 7 days',
+  'CAT':      'Dependencies not updated in 2+ years',
+  'CROSS':    'More than 20 open issues',
+  'GRIM':     'No commits in 6+ months',
+  'HEART':    'Single contributor with 50+ commits',
+  'KITE':     'Roadmap or TODO file detected',
+  'MOON':     '.env.example AND .env both in file tree',
+  'MOUNTAIN': '100+ commits in repo lifetime',
+  'SKULL':    'No LICENSE file',
+  'SNAKE':    '50%+ single-word commit messages',
+  'SPADE':    'CI/CD configuration detected',
+  'SUN':      'Test files found',
+  'SWORD':    '30%+ merge commits in recent history',
+  'TREE':     'More than 5 active branches',
+  'TEACUP':   'Always present. The reading happens inside a teapot.'
+};
+
+function populateSymbolGuide() {
+  var grid = document.getElementById('symbol-guide-grid');
+  if (!grid || grid.children.length > 0) return;
+
+  var allSymbols = SYMBOL_TABLE.concat([TEACUP]);
+  allSymbols.forEach(function (sym) {
+    var entry = document.createElement('div');
+    entry.className = 'sg-entry';
+
+    var header = document.createElement('div');
+    header.className = 'sg-header';
+    var icon = document.createElement('span');
+    icon.className   = 'sg-icon';
+    icon.textContent = sym.icon;
+    var name = document.createElement('span');
+    name.className   = 'sg-name';
+    name.textContent = sym.name;
+    header.appendChild(icon);
+    header.appendChild(name);
+
+    var meaning = document.createElement('div');
+    meaning.className   = 'sg-meaning';
+    meaning.textContent = sym.meaning;
+
+    var trigger = document.createElement('div');
+    trigger.className   = 'sg-trigger';
+    trigger.textContent = SYMBOL_GUIDE_TEXT[sym.name] || 'Triggered by repo data signals';
+
+    entry.appendChild(header);
+    entry.appendChild(meaning);
+    entry.appendChild(trigger);
+    grid.appendChild(entry);
+  });
+}
+
+document.getElementById('symbol-guide-btn').addEventListener('click', function () {
+  populateSymbolGuide();
+  document.getElementById('symbol-guide-overlay').hidden = false;
+});
+
+document.getElementById('symbol-guide-close').addEventListener('click', function () {
+  document.getElementById('symbol-guide-overlay').hidden = true;
+});
+
+document.getElementById('symbol-guide-overlay').addEventListener('click', function (e) {
+  if (e.target === this) this.hidden = true;
+});
+
+/* ============================================================
    INIT — load showcase.json, render carousel
    ============================================================ */
 // Try fetch first (works on server), fall back to inline data (works locally)

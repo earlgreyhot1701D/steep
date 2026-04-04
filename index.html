@@ -40,12 +40,15 @@
   <!-- ===== MAIN APP (hidden until crash dissolves) ===== -->
   <div id="app">
 
+    <button class="home-btn" id="home-btn">🫖 STEEP</button>
+
     <!-- Neon rate limit ticker (always visible) -->
     <div class="neon-bar" id="neon-bar" aria-live="polite">
       LEAVES REMAINING: 60 / 60 &bull; THE LEAVES GROW WEARY
     </div>
 
     <button class="about-btn" id="about-btn">ABOUT</button>
+    <button class="symbol-guide-btn" id="symbol-guide-btn">SYMBOL GUIDE</button>
 
     <div class="about-overlay" id="about-overlay" hidden>
       <div class="about-box">
@@ -118,6 +121,17 @@
 
     <div class="divider" style="margin: 0 auto 16px;"></div>
 
+    <!-- ===== SYMBOL GUIDE OVERLAY ===== -->
+    <div class="about-overlay" id="symbol-guide-overlay" hidden>
+      <div class="symbol-guide-box">
+        <button class="about-close" id="symbol-guide-close">&times;</button>
+        <div class="about-title">THE SYMBOLS OF STEEP</div>
+        <div class="symbol-guide-intro">Every reading begins with the leaves. These are the 18 symbols of traditional tasseography, mapped to the signals hidden in your repository's data. Your repo earns the symbols it earns.</div>
+        <div class="symbol-guide-grid" id="symbol-guide-grid">
+          <!-- Populated by app.js from SYMBOL_TABLE -->
+        </div>
+      </div>
+    </div>
     <!-- ===== PANE: CARDS (landing carousel) ===== -->
     <div id="pane-cards" class="pane pane--cards">
       <div class="col">
