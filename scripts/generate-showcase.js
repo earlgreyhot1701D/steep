@@ -240,10 +240,10 @@ async function main() {
       console.error('  Skipping ' + repoSlug);
     }
 
-    // Wait 60s between repos to respect Gemini free tier rate limit
+    // Wait 10s between repos (gemini-2.5-flash allows 10 RPM)
     if (i < REPOS.length - 1) {
-      console.log('  Waiting 60s for Gemini rate limit...\n');
-      await delay(60000);
+      console.log('  Waiting 10s...\n');
+      await delay(10000);
     }
   }
 

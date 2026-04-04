@@ -212,10 +212,14 @@ Deliver the reading now.`;
     try {
       reading = JSON.parse(rawText);
     } catch (e) {
-      // Gemini sometimes wraps JSON in markdown fences — strip them
-      const stripped = rawText.replace(/^```json\s*/i, '').replace(/```\s*$/, '').trim();
+      // Strip markdown code fences if present
+      let text = rawText;
+      text = text.replace(/^```json\s*/i, '');
+      text = text.replace(/^```\s*/i, '');
+      text = text.replace(/\s*```$/i, '');
+      text = text.trim();
       try {
-        reading = JSON.parse(stripped);
+        reading = JSON.parse(text);
       } catch (e2) {
         console.error('Could not parse Gemini JSON:', rawText.slice(0, 200));
         return res.status(502).json({ error: 'Gemini returned invalid JSON' });
