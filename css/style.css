@@ -1,0 +1,1198 @@
+/* ============================================================
+   STEEP — style.css
+   Dusty Blue Pixel Séance
+   Rules: no border-radius, no gradients on surfaces,
+          steps() easing for pixel feel, scanline overlay
+   ============================================================ */
+
+/* ── Google Fonts loaded in index.html ── */
+
+/* ── Reset ── */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ── Design tokens ── */
+:root {
+  --bg:            #c4c9d4;
+  --ink:           #2a2e38;
+  --ink-mid:       #444a58;
+  --ink-dim:       #6a7080;
+  --ink-faint:     #8a90a0;
+  --card-bg:       #dce0e8;
+  --card-border:   #a8aeb8;
+  --card-inner:    #c8ccd6;
+  --input-bg:      #d4d8e2;
+  --neon:          #007a6a;
+  --neon-glow:     rgba(0,122,106,0.3);
+  --reading-bg:    #dce0e8;
+  --reading-border:#b0b4c0;
+  --amber:         #a06a10;
+  --amber-bright:  #c88520;
+  --amber-dim:     #7a5008;
+  --red:           #b03030;
+  --teal:          #186a5e;
+  --btn-hover-bg:  #2a2e38;
+  --btn-hover-text:#dce0e8;
+}
+
+/* ── Base ── */
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'VT323', monospace;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Scanline overlay — fixed, full viewport, pointer-events none */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0,0,0,0.03) 3px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* ── Layout helpers ── */
+.col {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.divider {
+  max-width: 660px;
+  margin: 0 auto;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--ink-faint), transparent);
+}
+
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+
+/* Crash screen dissolve: holds solid ~72%, then glitches + fades */
+@keyframes crashSequence {
+  0%   { opacity: 1; filter: none; transform: none; }
+  72%  { opacity: 1; filter: none; transform: none; }
+  78%  { opacity: 0.9; filter: blur(1px); transform: translateX(3px); }
+  82%  { opacity: 0.8; filter: blur(2px); transform: translateX(-4px); }
+  86%  { opacity: 0.6; filter: blur(1px); transform: translateX(2px); }
+  90%  { opacity: 0.4; filter: blur(3px); transform: translateX(-2px); }
+  100% { opacity: 0; filter: blur(4px); transform: translateX(0); }
+}
+
+/* App reveal — synced to crash end */
+@keyframes appReveal {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Neon pulse on rate limit ticker */
+@keyframes neonPulse {
+  0%, 100% { opacity: 0.8; text-shadow: 0 0 6px var(--neon-glow); }
+  50%       { opacity: 1;   text-shadow: 0 0 12px var(--neon-glow), 0 0 20px var(--neon-glow); }
+}
+
+/* Steam particles */
+@keyframes steamRise {
+  0%   { opacity: 0;   transform: translateY(0); }
+  30%  { opacity: 0.6; }
+  100% { opacity: 0;   transform: translateY(-30px); }
+}
+
+/* Loading teacup pulse — steps for pixel chunkiness */
+@keyframes pixelPulse {
+  0%, 100% { transform: scale(1);    opacity: 0.5; }
+  50%       { transform: scale(1.05); opacity: 1;   }
+}
+
+/* Square crash spinner — steps(4) for pixel rotation */
+@keyframes spinSquare {
+  to { transform: rotate(360deg); }
+}
+
+/* Hard blink for loading text */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+/* Reading section stagger fade-in */
+@keyframes sectionReveal {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Skip hint fade-in after 1.5s */
+@keyframes hintAppear {
+  from { opacity: 0; }
+  to   { opacity: 0.5; }
+}
+
+
+/* ============================================================
+   CRASH SCREEN
+   ============================================================ */
+
+#crash-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  animation: crashSequence 5.5s forwards;
+}
+
+/* When JS skips the crash */
+#crash-screen.skip {
+  animation: none;
+  opacity: 0;
+  pointer-events: none;
+  display: none;
+}
+
+.crash-box {
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+  padding: 40px 28px;
+  text-align: center;
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+}
+
+/* Double-border inset */
+.crash-box::before {
+  content: '';
+  position: absolute;
+  top: 4px; left: 4px; right: 4px; bottom: 4px;
+  border: 1px solid var(--card-inner);
+  pointer-events: none;
+}
+
+.crash-cup {
+  width: 100px;
+  height: 65px;
+  image-rendering: pixelated;
+  display: block;
+  margin: 0 auto 18px;
+}
+
+.crash-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 13px;
+  color: var(--ink);
+  margin-bottom: 12px;
+  line-height: 1.8;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.crash-detail {
+  font-family: 'VT323', monospace;
+  font-size: 19px;
+  color: var(--ink-mid);
+  max-width: 380px;
+  margin: 0 auto 5px;
+  line-height: 1.5;
+}
+
+.crash-detail--small {
+  font-size: 16px;
+  margin-top: 3px;
+}
+
+.crash-code {
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+  color: var(--teal);
+  margin-top: 12px;
+  opacity: 0.7;
+}
+
+.crash-spinner-wrap {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Square spinner — border-radius: 0, steps(4) */
+.crash-spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid var(--ink-faint);
+  border-top-color: var(--amber);
+  border-radius: 0;
+  animation: spinSquare 0.8s steps(4) infinite;
+}
+
+/* Skip hint — appears after 1.5s */
+.crash-skip {
+  display: block;
+  margin: 12px auto 0;
+  font-family: 'VT323', monospace;
+  font-size: 14px;
+  color: var(--ink-faint);
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  animation: hintAppear 0.5s ease forwards;
+  animation-delay: 1.5s;
+}
+
+
+/* ============================================================
+   MAIN APP
+   ============================================================ */
+
+#app {
+  opacity: 0;
+  animation: appReveal 1s ease forwards;
+  animation-delay: 3.8s;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Neon rate limit bar ── */
+.neon-bar {
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+  color: var(--neon);
+  letter-spacing: 2px;
+  text-align: center;
+  padding: 12px 20px;
+  border-top: 2px solid var(--neon);
+  border-bottom: 1px solid var(--card-border);
+  background: rgba(0,122,106,0.04);
+  animation: neonPulse 3s ease-in-out infinite;
+  text-shadow: 0 0 6px var(--neon-glow);
+}
+
+.neon-bar--exhausted {
+  color: var(--red);
+  text-shadow: 0 0 6px rgba(176,48,48,0.3);
+  background: rgba(176,48,48,0.04);
+  border-color: rgba(176,48,48,0.2);
+}
+
+/* ── Input zone ── */
+.input-zone {
+  padding: 16px 0 12px;
+}
+
+/* ── Pixel teacup ── */
+.tcup {
+  position: relative;
+  width: 180px;
+  height: 138px;
+  margin: 10px auto 16px;
+}
+
+.tcup-glow {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 130px;
+  height: 65px;
+  background: radial-gradient(ellipse, rgba(160,106,16,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.px-cup {
+  width: 180px;
+  height: 110px;
+  image-rendering: pixelated;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Steam particles */
+.steam {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.steam-particle {
+  width: 4px;
+  height: 4px;
+  background: var(--ink-dim);
+  opacity: 0;
+  animation: steamRise 2s ease-in-out infinite;
+}
+.steam-particle:nth-child(2) { animation-delay: 0.4s; }
+.steam-particle:nth-child(3) { animation-delay: 0.8s; }
+.steam-particle:nth-child(4) { animation-delay: 1.2s; }
+
+/* ── Brand ── */
+.brand {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 32px;
+  color: var(--amber);
+  letter-spacing: 8px;
+  margin-bottom: 2px;
+  text-shadow: 2px 2px 0 var(--amber-dim), 3px 3px 0 rgba(0,0,0,0.1);
+}
+
+.brand-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-style: italic;
+  color: var(--ink-dim);
+  margin-bottom: 12px;
+}
+
+/* ── Input block ── */
+.inp-block {
+  background: var(--input-bg);
+  border: 1px solid var(--card-border);
+  padding: 16px 20px 20px;
+  position: relative;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.inp-block::before {
+  content: '';
+  position: absolute;
+  top: 3px; left: 3px; right: 3px; bottom: 3px;
+  border: 1px solid var(--card-inner);
+  pointer-events: none;
+}
+
+.inp-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: var(--ink-dim);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.inp-row {
+  display: flex;
+  border: 2px solid var(--amber);
+  background: rgba(255,255,255,0.25);
+}
+
+.inp-row input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 11px 14px;
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  color: var(--ink);
+  outline: none;
+}
+
+.inp-row input::placeholder {
+  color: var(--ink-faint);
+}
+
+.inp-row button {
+  background: var(--amber);
+  border: none;
+  padding: 11px 18px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: #fff;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.inp-row button:hover {
+  background: var(--amber-bright);
+}
+
+.real-btn {
+  display: block;
+  margin: 8px auto 0;
+  font-family: 'VT323', monospace;
+  font-size: 15px;
+  color: var(--ink-faint);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.real-btn:hover {
+  color: var(--red);
+}
+
+
+/* ============================================================
+   PANES
+   ============================================================ */
+
+.pane {
+  flex: 1;
+  padding: 0 0 28px;
+}
+
+/* ── Section label ── */
+.sec-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: var(--ink-dim);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+/* ============================================================
+   CAROUSEL
+   ============================================================ */
+
+.carousel-wrap {
+  position: relative;
+  padding: 0 40px;
+}
+
+.carousel {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding-bottom: 10px;
+  padding-top: 8px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.car-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--ink-dim);
+  z-index: 10;
+}
+
+.car-arrow:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.car-arrow--left  { left: 0; }
+.car-arrow--right { right: 0; }
+
+/* ── Carousel card ── */
+.preview-card {
+  flex: 0 0 240px;
+  scroll-snap-align: start;
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+  padding: 14px 12px;
+  position: relative;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.preview-card::before {
+  content: '';
+  position: absolute;
+  top: 4px; left: 4px; right: 4px; bottom: 4px;
+  border: 1px solid var(--card-inner);
+  pointer-events: none;
+}
+
+.preview-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--amber);
+  box-shadow: 0 4px 0 var(--amber-dim);
+}
+
+.pc-repo {
+  font-family: 'VT323', monospace;
+  font-size: 13px;
+  color: var(--ink-dim);
+  margin-bottom: 6px;
+}
+
+.pc-syms {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+/* Symbol tag wrapper (for tooltip) */
+.sym-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  cursor: help;
+  min-width: 44px;
+}
+
+/* Card symbol icon box */
+.pc-sym-icon {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--amber-dim);
+  background: rgba(160,106,16,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+  line-height: 1;
+}
+
+/* Card symbol name label */
+.pc-sym-name {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 5px;
+  color: var(--amber);
+  letter-spacing: 0.3px;
+  text-align: center;
+  line-height: 1.4;
+  max-width: 44px;
+  word-break: break-word;
+}
+
+.sym-tooltip {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: var(--card-bg);
+  padding: 6px 10px;
+  font-family: 'VT323', monospace;
+  font-size: 14px;
+  white-space: nowrap;
+  z-index: 200;
+  pointer-events: none;
+  /* Ensure tooltip doesn't clip at card edge */
+  max-width: 180px;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.sym-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--ink);
+}
+
+.sym-wrap:hover .sym-tooltip {
+  display: block;
+}
+
+.pc-verdict {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+.pc-snippet {
+  font-family: 'VT323', monospace;
+  font-size: 14px;
+  color: var(--ink-dim);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.pc-rating {
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: var(--amber);
+  margin-bottom: 6px;
+  font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+}
+
+.pc-expand {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+  color: var(--teal);
+  letter-spacing: 1px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.pc-expand:hover {
+  text-decoration: underline;
+}
+
+
+/* ============================================================
+   READING PANE
+   ============================================================ */
+
+.reading-pane {
+  background: var(--reading-bg);
+  border: 2px solid var(--amber-dim);
+  padding: 26px 22px;
+  text-align: left;
+  position: relative;
+}
+
+.reading-pane::before {
+  content: '';
+  position: absolute;
+  top: 5px; left: 5px; right: 5px; bottom: 5px;
+  border: 1px solid var(--reading-border);
+  pointer-events: none;
+}
+
+.rp-repo {
+  font-family: 'VT323', monospace;
+  font-size: 15px;
+  color: var(--ink-dim);
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.rp-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 11px;
+  color: var(--amber);
+  text-align: center;
+  margin-bottom: 14px;
+  letter-spacing: 2px;
+}
+
+/* Symbol row */
+.rp-syms {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.rp-sym {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  position: relative;
+  cursor: help;
+}
+
+.rp-sym-icon {
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--amber-dim);
+  background: rgba(160,106,16,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+  line-height: 1;
+}
+
+.rp-sym-name {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+  color: var(--ink-dim);
+  letter-spacing: 1px;
+}
+
+/* Symbol detail tooltip */
+.sym-detail {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: var(--card-bg);
+  padding: 8px 12px;
+  font-family: 'VT323', monospace;
+  font-size: 14px;
+  width: 200px;
+  white-space: normal;
+  z-index: 50;
+  text-align: left;
+  line-height: 1.4;
+}
+
+.sym-detail::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--ink);
+}
+
+.sym-detail b {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+  color: var(--amber-bright);
+  display: block;
+  margin-bottom: 3px;
+  letter-spacing: 1px;
+}
+
+.sym-detail em {
+  font-style: italic;
+  color: #9ca4b4;
+  display: block;
+  margin-bottom: 3px;
+  font-size: 13px;
+}
+
+.rp-sym:hover .sym-detail {
+  display: block;
+}
+
+/* Symbol legend */
+.sym-legend {
+  background: rgba(0,0,0,0.04);
+  border: 1px solid var(--reading-border);
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  text-align: left;
+}
+
+.sym-legend-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: var(--ink-dim);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.sym-legend-row {
+  display: flex;
+  gap: 7px;
+  margin-bottom: 7px;
+  align-items: flex-start;
+}
+
+.sym-legend-row:last-child {
+  margin-bottom: 0;
+}
+
+.sym-legend-icon {
+  font-size: 18px;
+  font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+  width: 22px;
+  text-align: center;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.sym-legend-text {
+  font-family: 'VT323', monospace;
+  font-size: 15px;
+  color: var(--ink-mid);
+  line-height: 1.4;
+}
+
+.sym-legend-text b {
+  color: var(--amber);
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+  letter-spacing: 0.5px;
+}
+
+.sym-legend-trigger {
+  font-size: 13px;
+  color: var(--ink-dim);
+  font-style: italic;
+  display: block;
+  margin-top: 1px;
+}
+
+/* Reading divider */
+.rp-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--reading-border), transparent);
+  margin: 14px 0;
+}
+
+/* Reading sections — stagger animation */
+.rp-section {
+  margin-bottom: 16px;
+  opacity: 0;
+  animation: sectionReveal 0.8s ease forwards;
+}
+
+.rp-section:nth-child(1) { animation-delay: 0.2s; }
+.rp-section:nth-child(2) { animation-delay: 0.7s; }
+.rp-section:nth-child(3) { animation-delay: 1.2s; }
+
+.rp-section-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 8px;
+  color: var(--teal);
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+
+.rp-section-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  color: var(--ink-mid);
+  line-height: 1.6;
+}
+
+/* Brew rating */
+.rp-brew {
+  text-align: center;
+  margin: 16px 0;
+  padding: 10px 0;
+  border-top: 1px solid var(--reading-border);
+  border-bottom: 1px solid var(--reading-border);
+}
+
+.rp-brew-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: var(--amber);
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+
+.rp-brew-pots {
+  font-size: 22px;
+  letter-spacing: 5px;
+  font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+}
+
+/* Verdict */
+.rp-verdict {
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--amber-bright);
+  margin: 14px 0;
+  line-height: 1.4;
+}
+
+/* Lucky commit */
+.rp-lucky {
+  text-align: center;
+  padding: 9px 14px;
+  border: 1px dashed var(--reading-border);
+  margin-top: 10px;
+  background: rgba(160,106,16,0.03);
+}
+
+.rp-lucky-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+  color: var(--ink-dim);
+  letter-spacing: 2px;
+  margin-bottom: 3px;
+}
+
+.rp-lucky-text {
+  font-family: 'VT323', monospace;
+  font-size: 17px;
+  color: var(--ink-mid);
+  font-style: italic;
+}
+
+/* Action buttons */
+.rp-actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.reading-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  padding: 7px 14px;
+  background: transparent;
+  border: 1px solid var(--amber-dim);
+  color: var(--amber);
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.reading-btn:hover {
+  background: var(--btn-hover-bg);
+  color: var(--btn-hover-text);
+}
+
+
+/* ============================================================
+   LOADING PANE
+   ============================================================ */
+
+.loading-box {
+  text-align: center;
+  padding: 60px 0;
+}
+
+.loading-cup {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 16px;
+  animation: pixelPulse 1.5s steps(3) infinite;
+  font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+}
+
+.loading-msg {
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  color: var(--ink-dim);
+  animation: blink 1.5s steps(2) infinite;
+  height: 28px;
+}
+
+/* ============================================================
+   418 PANE
+   ============================================================ */
+
+.teapot-box {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.teapot-icon {
+  font-size: 64px;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.teapot-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  color: var(--red);
+  margin-bottom: 14px;
+  line-height: 1.8;
+  letter-spacing: 1px;
+}
+
+.teapot-msg {
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+  color: var(--ink-mid);
+  max-width: 420px;
+  margin: 0 auto 6px;
+  line-height: 1.5;
+}
+
+.teapot-msg--small {
+  font-size: 17px;
+}
+
+.teapot-rfc {
+  font-family: 'VT323', monospace;
+  font-size: 15px;
+  color: var(--teal);
+  margin-top: 12px;
+  margin-bottom: 20px;
+  opacity: 0.7;
+}
+
+/* ============================================================
+   GRIMOIRE PANE
+   ============================================================ */
+
+.grimoire-box {
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+  padding: 20px;
+  text-align: left;
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.grimoire-box::before {
+  content: '';
+  position: absolute;
+  top: 4px; left: 4px; right: 4px; bottom: 4px;
+  border: 1px solid var(--card-inner);
+  pointer-events: none;
+}
+
+.grimoire-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 9px;
+  color: var(--amber);
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.grimoire-entry {
+  border-bottom: 1px solid var(--card-inner);
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.grimoire-entry:last-child {
+  border-bottom: none;
+}
+
+.grimoire-entry:hover .grimoire-verdict {
+  color: var(--amber);
+}
+
+.grimoire-repo {
+  font-family: 'VT323', monospace;
+  font-size: 14px;
+  color: var(--ink-dim);
+}
+
+.grimoire-verdict {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  color: var(--ink);
+  font-style: italic;
+  margin: 4px 0;
+}
+
+.grimoire-meta {
+  font-family: 'VT323', monospace;
+  font-size: 13px;
+  color: var(--ink-faint);
+  display: flex;
+  justify-content: space-between;
+}
+
+.grimoire-empty {
+  font-family: 'VT323', monospace;
+  font-size: 17px;
+  color: var(--ink-faint);
+  text-align: center;
+  font-style: italic;
+  padding: 20px 0;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.footer {
+  font-family: 'VT323', monospace;
+  font-size: 13px;
+  color: var(--ink-faint);
+  letter-spacing: 2px;
+  text-align: center;
+  padding: 20px 0 12px;
+  margin-top: auto;
+}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+
+[hidden] {
+  display: none !important;
+}
+
+
+/* ── Section label row (label + grimoire button) ── */
+.sec-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.sec-label-row .sec-label {
+  margin-bottom: 0;
+}
+
+.grimoire-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+  padding: 5px 10px;
+  background: transparent;
+  border: 1px solid var(--amber-dim);
+  color: var(--amber);
+  cursor: pointer;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+.grimoire-btn:hover {
+  background: var(--btn-hover-bg);
+  color: var(--btn-hover-text);
+}
+
+/* ── Grimoire back button ── */
+.grimoire-back {
+  display: block;
+  margin: 14px auto 0;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  padding: 7px 14px;
+  background: transparent;
+  border: 1px solid var(--amber-dim);
+  color: var(--amber);
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.grimoire-back:hover {
+  background: var(--btn-hover-bg);
+  color: var(--btn-hover-text);
+}

@@ -1,0 +1,361 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+--bg:#c4c9d4;--ink:#2a2e38;--ink-mid:#444a58;--ink-dim:#6a7080;--ink-faint:#8a90a0;
+--card-bg:#dce0e8;--card-border:#a8aeb8;--card-inner:#c8ccd6;--input-bg:#d4d8e2;
+--neon:#007a6a;--neon-glow:rgba(0,122,106,0.3);
+--reading-bg:#dce0e8;--reading-border:#b0b4c0;
+--amber:#a06a10;--amber-bright:#c88520;--amber-dim:#7a5008;
+--red:#b03030;--teal:#186a5e;
+--btn-hover-bg:#2a2e38;--btn-hover-text:#dce0e8;
+}
+.mock{font-family:'VT323',monospace;color:var(--ink);background:var(--bg);padding:0;}
+.mock::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.03) 3px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:100;}
+.col{max-width:660px;margin:0 auto;padding:28px 20px;text-align:center;}
+.dv{max-width:660px;margin:0 auto;padding:0 20px;}
+.dv-l{height:1px;background:linear-gradient(to right,transparent,var(--ink-faint),transparent);}
+.stag{font-family:'Press Start 2P',monospace;font-size:7px;color:var(--red);letter-spacing:3px;text-transform:uppercase;text-align:center;margin-bottom:20px;padding-top:6px;}
+
+.crash-box{background:var(--card-bg);border:2px solid var(--card-border);padding:40px 28px;text-align:center;position:relative;max-width:500px;margin:0 auto;}
+.crash-box::before{content:'';position:absolute;top:4px;left:4px;right:4px;bottom:4px;border:1px solid var(--card-inner);pointer-events:none;}
+.crash-cup{width:100px;height:65px;image-rendering:pixelated;margin:0 auto 18px;display:block;}
+.crash-t{font-family:'Press Start 2P',monospace;font-size:13px;color:var(--ink);margin-bottom:12px;line-height:1.8;}
+.crash-d{font-size:19px;color:var(--ink-mid);max-width:380px;margin:0 auto 5px;line-height:1.5;}
+.crash-c{font-size:16px;color:var(--teal);margin-top:12px;opacity:0.7;}
+.spin-r{margin-top:14px;display:flex;justify-content:center;}
+.sq{width:18px;height:18px;border:3px solid var(--ink-faint);border-top-color:var(--amber);border-radius:0;animation:sp .8s steps(4) infinite;}
+@keyframes sp{to{transform:rotate(360deg);}}
+.crash-h{font-size:14px;color:var(--ink-faint);margin-top:12px;}
+
+.neon{text-align:center;padding:10px;font-size:16px;color:var(--neon);letter-spacing:2px;text-shadow:0 0 6px var(--neon-glow);border-bottom:1px solid var(--card-border);animation:np 3s ease-in-out infinite;background:rgba(0,122,106,0.04);margin:0 -20px 16px;}
+@keyframes np{0%,100%{opacity:.8;}50%{opacity:1;}}
+
+.tagline{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--ink-dim);margin-bottom:20px;}
+
+.tcup{margin:10px auto 16px;position:relative;width:180px;height:138px;}
+.tcup-glow{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);width:130px;height:65px;background:radial-gradient(ellipse,rgba(160,106,16,0.06) 0%,transparent 70%);pointer-events:none;}
+.px-cup{width:180px;height:110px;image-rendering:pixelated;position:absolute;bottom:0;}
+.stm{position:absolute;top:-6px;left:50%;transform:translateX(-50%);display:flex;gap:10px;}
+.s-p{width:4px;height:4px;background:var(--ink-dim);opacity:0;animation:sr 2s ease-in-out infinite;}
+.s-p:nth-child(2){animation-delay:.4s;}.s-p:nth-child(3){animation-delay:.8s;}.s-p:nth-child(4){animation-delay:1.2s;}
+@keyframes sr{0%{opacity:0;transform:translateY(0);}30%{opacity:.4;}100%{opacity:0;transform:translateY(-26px);}}
+
+.brand{font-family:'Press Start 2P',monospace;font-size:26px;color:var(--amber);letter-spacing:6px;margin-bottom:4px;text-shadow:2px 2px 0 var(--amber-dim),3px 3px 0 rgba(0,0,0,.1);}
+.brand-sub{font-size:19px;color:var(--ink-dim);font-style:italic;margin-bottom:20px;}
+
+.inp{margin-bottom:20px;background:var(--input-bg);border:1px solid var(--card-border);padding:16px 20px 20px;position:relative;}
+.inp::before{content:'';position:absolute;top:3px;left:3px;right:3px;bottom:3px;border:1px solid var(--card-inner);pointer-events:none;}
+.inp-l{font-family:'Press Start 2P',monospace;font-size:8px;color:var(--ink-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+.inp-r{display:flex;border:2px solid var(--amber);background:rgba(255,255,255,.25);}
+.inp-r input{flex:1;background:transparent;border:none;padding:11px 14px;font-family:'VT323',monospace;font-size:20px;color:var(--ink);outline:none;}
+.inp-r input::placeholder{color:var(--ink-faint);}
+.inp-r button{background:var(--amber);border:none;padding:11px 18px;font-family:'Press Start 2P',monospace;font-size:9px;color:#fff;cursor:pointer;}
+.real-btn{display:block;margin:8px auto 0;font-family:'VT323',monospace;font-size:15px;color:var(--ink-faint);background:none;border:none;cursor:pointer;text-decoration:underline;}
+.real-btn:hover{color:var(--red);}
+
+.sec-l{font-family:'Press Start 2P',monospace;font-size:8px;color:var(--ink-dim);letter-spacing:3px;text-transform:uppercase;margin-bottom:12px;text-align:left;}
+
+.car-wrap{position:relative;}
+.cg{display:flex;gap:14px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory;scrollbar-width:none;}
+.cg::-webkit-scrollbar{display:none;}
+.car-arr{position:absolute;top:50%;transform:translateY(-50%);background:var(--card-bg);border:2px solid var(--card-border);width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:var(--ink-dim);z-index:10;}
+.car-arr:hover{border-color:var(--amber);color:var(--amber);}
+.car-arr.left{left:-6px;}
+.car-arr.right{right:-6px;}
+
+.pc{flex:0 0 210px;scroll-snap-align:start;background:var(--card-bg);border:2px solid var(--card-border);padding:14px 12px;position:relative;text-align:left;}
+.pc::before{content:'';position:absolute;top:4px;left:4px;right:4px;bottom:4px;border:1px solid var(--card-inner);pointer-events:none;}
+.pc-repo{font-size:13px;color:var(--ink-dim);margin-bottom:6px;}
+.pc-syms{display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap;}
+.sw{position:relative;display:inline-block;}
+.sy{font-family:'Press Start 2P',monospace;font-size:6px;padding:2px 5px;border:1px solid var(--amber-dim);color:var(--amber);background:rgba(160,106,16,.06);cursor:help;}
+.sy-t{display:none;position:absolute;bottom:calc(100% + 5px);left:50%;transform:translateX(-50%);background:var(--ink);color:var(--card-bg);padding:5px 8px;font-family:'VT323',monospace;font-size:13px;white-space:nowrap;z-index:50;pointer-events:none;}
+.sy-t::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:4px solid transparent;border-top-color:var(--ink);}
+.sw:hover .sy-t{display:block;}
+.pc-v{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--ink);line-height:1.3;margin-bottom:6px;}
+.pc-sn{font-size:14px;color:var(--ink-dim);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:8px;}
+.pc-r{font-size:13px;letter-spacing:2px;color:var(--amber);margin-bottom:6px;}
+.pc-expand{font-family:'Press Start 2P',monospace;font-size:6px;color:var(--teal);letter-spacing:1px;cursor:pointer;border:none;background:none;padding:0;}
+.pc-expand:hover{text-decoration:underline;}
+
+.rp{background:var(--reading-bg);border:2px solid var(--amber-dim);padding:26px 22px;text-align:left;position:relative;}
+.rp::before{content:'';position:absolute;top:5px;left:5px;right:5px;bottom:5px;border:1px solid var(--reading-border);pointer-events:none;}
+.rp-repo{font-size:15px;color:var(--ink-dim);text-align:center;margin-bottom:4px;}
+.rp-title{font-family:'Press Start 2P',monospace;font-size:11px;color:var(--amber);text-align:center;margin-bottom:14px;letter-spacing:2px;}
+.rp-syms{display:flex;justify-content:center;gap:14px;margin-bottom:6px;flex-wrap:wrap;}
+.rp-s{display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;cursor:help;}
+.rp-si{width:36px;height:36px;border:2px solid var(--amber-dim);background:rgba(160,106,16,.05);display:flex;align-items:center;justify-content:center;font-size:16px;}
+.rp-sn{font-family:'Press Start 2P',monospace;font-size:6px;color:var(--ink-dim);letter-spacing:1px;}
+.sd{display:none;position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:var(--ink);color:var(--card-bg);padding:8px 12px;font-family:'VT323',monospace;font-size:14px;width:200px;white-space:normal;z-index:50;text-align:left;line-height:1.4;}
+.sd::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--ink);}
+.sd b{font-family:'Press Start 2P',monospace;font-size:6px;color:var(--amber-bright);display:block;margin-bottom:3px;letter-spacing:1px;}
+.sd em{font-style:italic;color:#9ca4b4;display:block;margin-bottom:3px;font-size:13px;}
+.rp-s:hover .sd{display:block;}
+
+.sym-leg{background:rgba(0,0,0,.04);border:1px solid var(--reading-border);padding:12px 14px;margin-bottom:14px;text-align:left;}
+.sym-leg-t{font-family:'Press Start 2P',monospace;font-size:7px;color:var(--ink-dim);letter-spacing:2px;margin-bottom:8px;}
+.sl-row{display:flex;gap:7px;margin-bottom:7px;align-items:flex-start;}
+.sl-row:last-child{margin-bottom:0;}
+.sl-ico{font-size:15px;width:22px;text-align:center;flex-shrink:0;}
+.sl-txt{font-family:'VT323',monospace;font-size:15px;color:var(--ink-mid);line-height:1.4;}
+.sl-txt b{color:var(--amber);font-family:'Press Start 2P',monospace;font-size:6px;letter-spacing:.5px;}
+.sl-trg{font-size:13px;color:var(--ink-dim);font-style:italic;display:block;margin-top:1px;}
+
+.rp-dv{height:1px;background:linear-gradient(to right,transparent,var(--reading-border),transparent);margin:14px 0;}
+.rp-sec{margin-bottom:16px;}
+.rp-sl{font-family:'Press Start 2P',monospace;font-size:8px;color:var(--teal);letter-spacing:2px;margin-bottom:6px;}
+.rp-st{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--ink-mid);line-height:1.6;}
+.rp-brew{text-align:center;margin:16px 0;padding:10px 0;border-top:1px solid var(--reading-border);border-bottom:1px solid var(--reading-border);}
+.rp-bl{font-family:'Press Start 2P',monospace;font-size:7px;color:var(--amber);letter-spacing:2px;margin-bottom:6px;}
+.rp-bp{font-size:20px;letter-spacing:5px;}
+.rp-verd{text-align:center;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;font-style:italic;color:var(--amber-bright);margin:14px 0;line-height:1.4;}
+.rp-luck{text-align:center;padding:9px 14px;border:1px dashed var(--reading-border);margin-top:10px;background:rgba(160,106,16,.03);}
+.rp-ll{font-family:'Press Start 2P',monospace;font-size:6px;color:var(--ink-dim);letter-spacing:2px;margin-bottom:3px;}
+.rp-lt{font-size:17px;color:var(--ink-mid);font-style:italic;}
+.rp-acts{display:flex;justify-content:center;gap:8px;margin-top:16px;flex-wrap:wrap;}
+.rb{font-family:'Press Start 2P',monospace;font-size:7px;padding:7px 14px;background:transparent;border:1px solid var(--amber-dim);color:var(--amber);cursor:pointer;}
+.rb:hover{background:var(--btn-hover-bg);color:var(--btn-hover-text);}
+
+.ld-box{text-align:center;padding:40px 0;}
+.ld-c{font-size:36px;animation:pp 1.5s steps(3) infinite;}
+@keyframes pp{0%,100%{transform:scale(1);opacity:.5;}50%{transform:scale(1.05);opacity:1;}}
+.ld-msgs{font-size:18px;color:var(--ink-dim);margin-top:12px;height:24px;}
+.ld-msg{animation:bl 1.5s steps(2) infinite;}
+@keyframes bl{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+.tp-box{text-align:center;padding:40px 20px;}
+.tp-i{font-size:52px;margin-bottom:12px;}
+.tp-t{font-family:'Press Start 2P',monospace;font-size:12px;color:var(--red);margin-bottom:10px;line-height:1.6;}
+.tp-m{font-size:18px;color:var(--ink-mid);max-width:400px;margin:0 auto 5px;line-height:1.5;}
+.tp-c{font-size:14px;color:var(--teal);margin-top:10px;opacity:.6;}
+
+.grim-box{background:var(--card-bg);border:2px solid var(--card-border);padding:20px;text-align:left;position:relative;max-width:500px;margin:0 auto;}
+.grim-box::before{content:'';position:absolute;top:4px;left:4px;right:4px;bottom:4px;border:1px solid var(--card-inner);pointer-events:none;}
+.grim-t{font-family:'Press Start 2P',monospace;font-size:9px;color:var(--amber);letter-spacing:2px;margin-bottom:14px;text-align:center;}
+.grim-entry{border-bottom:1px solid var(--card-inner);padding:10px 0;}
+.grim-entry:last-child{border-bottom:none;}
+.grim-repo{font-size:14px;color:var(--ink-dim);}
+.grim-verd{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--ink);font-style:italic;margin:4px 0;}
+.grim-meta{font-size:12px;color:var(--ink-faint);display:flex;justify-content:space-between;}
+.grim-empty{font-size:16px;color:var(--ink-faint);text-align:center;font-style:italic;padding:16px 0;}
+
+.foot{text-align:center;padding:20px 0 10px;font-size:13px;color:var(--ink-faint);letter-spacing:2px;}
+</style>
+
+<div class="mock">
+
+<!-- ===== SCREEN 1: CRASH ===== -->
+<div class="col">
+<div class="stag">SCREEN 1: CRASH (dissolves after 5s)</div>
+<div class="crash-box">
+<svg class="crash-cup" viewBox="0 0 40 24" style="image-rendering:pixelated;">
+<rect x="8" y="4" width="20" height="14" fill="#a06a10"/>
+<rect x="7" y="6" width="1" height="10" fill="#a06a10"/>
+<rect x="29" y="6" width="1" height="10" fill="#a06a10"/>
+<rect x="30" y="7" width="3" height="8" fill="none" stroke="#a06a10" stroke-width="1"/>
+<rect x="9" y="5" width="18" height="12" fill="#c88520"/>
+<rect x="10" y="6" width="16" height="4" fill="#a06a10" opacity="0.3"/>
+<rect x="7" y="18" width="22" height="2" fill="#7a5008"/>
+<rect x="5" y="20" width="26" height="2" fill="#5c3d10"/>
+<rect x="12" y="8" width="2" height="2" fill="#5c3d10" opacity="0.4"/>
+<rect x="17" y="7" width="1" height="1" fill="#5c3d10" opacity="0.3"/>
+<rect x="20" y="9" width="2" height="1" fill="#5c3d10" opacity="0.35"/>
+</svg>
+<div class="crash-t">How 'bout a cuppa?</div>
+<div class="crash-d">Something spilled while steeping this page.</div>
+<div class="crash-d" style="font-size:16px;margin-top:3px;">The teapot encountered an unexpected leaf configuration.</div>
+<div class="crash-c">ERR_TEAPOT_418 :: STEEP_DIVINATION_FAULT</div>
+<div class="spin-r"><div class="sq"></div></div>
+<div class="crash-h">press any key to skip</div>
+</div>
+</div>
+<div class="dv"><div class="dv-l"></div></div>
+
+<!-- ===== SCREEN 2: LANDING ===== -->
+<div class="col">
+<div class="stag">SCREEN 2: LANDING</div>
+<div class="neon">LEAVES REMAINING: 47 / 60 &bull; THE LEAVES GROW WEARY</div>
+<div class="tagline">"I read your commits so your therapist doesn't have to."</div>
+<div class="tcup">
+<div class="stm"><div class="s-p"></div><div class="s-p"></div><div class="s-p"></div><div class="s-p"></div></div>
+<div class="tcup-glow"></div>
+<svg class="px-cup" viewBox="0 0 40 24" style="image-rendering:pixelated;">
+<rect x="8" y="4" width="20" height="14" fill="#a06a10"/>
+<rect x="7" y="6" width="1" height="10" fill="#a06a10"/>
+<rect x="29" y="6" width="1" height="10" fill="#a06a10"/>
+<rect x="30" y="7" width="3" height="8" fill="none" stroke="#a06a10" stroke-width="1"/>
+<rect x="9" y="5" width="18" height="12" fill="#c88520"/>
+<rect x="10" y="6" width="16" height="4" fill="#a06a10" opacity="0.3"/>
+<rect x="7" y="18" width="22" height="2" fill="#7a5008"/>
+<rect x="5" y="20" width="26" height="2" fill="#5c3d10"/>
+<rect x="12" y="8" width="2" height="2" fill="#5c3d10" opacity="0.4"/>
+<rect x="17" y="7" width="1" height="1" fill="#5c3d10" opacity="0.3"/>
+<rect x="20" y="9" width="2" height="1" fill="#5c3d10" opacity="0.35"/>
+<rect x="14" y="10" width="1" height="1" fill="#5c3d10" opacity="0.25"/>
+</svg>
+</div>
+<div class="brand">STEEP</div>
+<div class="brand-sub">A tea leaf reading for your GitHub repo.</div>
+<div class="inp">
+<div class="inp-l">Paste your repository</div>
+<div class="inp-r">
+<input type="text" placeholder="github.com/torvalds/linux"/>
+<button>DIVINE</button>
+</div>
+<button class="real-btn">Actually, give me a real code review &rarr;</button>
+</div>
+<div class="sec-l">From the grimoire of past readings</div>
+<div class="car-wrap">
+<div class="car-arr left" onclick="document.getElementById('cg').scrollBy({left:-230,behavior:'smooth'})">&larr;</div>
+<div class="car-arr right" onclick="document.getElementById('cg').scrollBy({left:230,behavior:'smooth'})">&rarr;</div>
+<div class="cg" id="cg">
+
+<div class="pc">
+<div class="pc-repo">torvalds/linux</div>
+<div class="pc-syms"><div class="sw"><span class="sy">MOUNTAIN</span><span class="sy-t">A great journey (100+ commits)</span></div><div class="sw"><span class="sy">ANCHOR</span><span class="sy-t">Stability (consistent 6+ mo)</span></div><div class="sw"><span class="sy">SUN</span><span class="sy-t">Success (has test files)</span></div><div class="sw"><span class="sy">TEACUP</span><span class="sy-t">The vessel speaks (always present)</span></div></div>
+<div class="pc-v">The mountain does not ask for applause.</div>
+<div class="pc-sn">33 years of commits. A file tree that resembles less a repository and more a geological formation...</div>
+<div class="pc-r">&#x1FAD6;&#x1FAD6;&#x1FAD6;&#x1FAD6;&#x1FAD6;</div>
+<button class="pc-expand">READ FULL READING &rarr;</button>
+</div>
+
+<div class="pc">
+<div class="pc-repo">facebook/react</div>
+<div class="pc-syms"><div class="sw"><span class="sy">SWORD</span><span class="sy-t">Conflict (30%+ merge commits)</span></div><div class="sw"><span class="sy">TREE</span><span class="sy-t">Branching (5+ active branches)</span></div><div class="sw"><span class="sy">SPADE</span><span class="sy-t">Hard work (has CI/CD)</span></div><div class="sw"><span class="sy">TEACUP</span><span class="sy-t">The vessel speaks</span></div></div>
+<div class="pc-v">Everyone has opinions about your branches.</div>
+<div class="pc-sn">Merge conflicts in the leaves. So many. The Sword reveals itself in 34% of recent history...</div>
+<div class="pc-r">&#x1FAD6;&#x1FAD6;&#x1FAD6;&#x1FAD6;</div>
+<button class="pc-expand">READ FULL READING &rarr;</button>
+</div>
+
+<div class="pc">
+<div class="pc-repo">danielmiessler/SecLists</div>
+<div class="pc-syms"><div class="sw"><span class="sy">MOUNTAIN</span><span class="sy-t">A great journey (100+ commits)</span></div><div class="sw"><span class="sy">SKULL</span><span class="sy-t">Danger (no LICENSE)</span></div><div class="sw"><span class="sy">KITE</span><span class="sy-t">Wishes (has roadmap file)</span></div><div class="sw"><span class="sy">TEACUP</span><span class="sy-t">The vessel speaks</span></div></div>
+<div class="pc-v">The leaves see no code. Only lists. Thousands of lists.</div>
+<div class="pc-sn">A repository of pure text files arranged with the obsessive precision of a librarian who has seen too much...</div>
+<div class="pc-r">&#x1FAD6;&#x1FAD6;&#x1FAD6;&#x1FAD6;</div>
+<button class="pc-expand">READ FULL READING &rarr;</button>
+</div>
+
+<div class="pc">
+<div class="pc-repo">earlgreyhot1701D/memoria-clew</div>
+<div class="pc-syms"><div class="sw"><span class="sy">HEART</span><span class="sy-t">Devotion (solo, 100+ commits)</span></div><div class="sw"><span class="sy">SNAKE</span><span class="sy-t">Deception (50%+ lazy commits)</span></div><div class="sw"><span class="sy">APPLE</span><span class="sy-t">Knowledge (README 500+ chars)</span></div><div class="sw"><span class="sy">TEACUP</span><span class="sy-t">The vessel speaks</span></div></div>
+<div class="pc-v">A labor of love with commit messages that would make a mystic weep.</div>
+<div class="pc-sn">One contributor. 87 commits. The Heart reveals itself. But child, the Snake also stirs...</div>
+<div class="pc-r">&#x1FAD6;&#x1FAD6;&#x1FAD6;</div>
+<button class="pc-expand">READ FULL READING &rarr;</button>
+</div>
+
+<div class="pc">
+<div class="pc-repo">cursed-dev/abandoned-todo</div>
+<div class="pc-syms"><div class="sw"><span class="sy">GRIM</span><span class="sy-t">Death (no commits 6+ mo)</span></div><div class="sw"><span class="sy">SKULL</span><span class="sy-t">Danger (no LICENSE)</span></div><div class="sw"><span class="sy">SNAKE</span><span class="sy-t">Deception (lazy commits)</span></div><div class="sw"><span class="sy">TEACUP</span><span class="sy-t">The vessel speaks</span></div></div>
+<div class="pc-v">This repo died as it lived: without documentation.</div>
+<div class="pc-sn">Last commit: 847 days ago. Message: "final fix". It was not, in fact, final...</div>
+<div class="pc-r">&#x1FAD6;</div>
+<button class="pc-expand">READ FULL READING &rarr;</button>
+</div>
+
+</div>
+</div>
+</div>
+<div class="dv"><div class="dv-l"></div></div>
+
+<!-- ===== SCREEN 3: LOADING ===== -->
+<div class="col">
+<div class="stag">SCREEN 3: LOADING (messages rotate every 2s)</div>
+<div class="ld-box">
+<div class="ld-c">&#x1FAD6;</div>
+<div class="ld-msgs"><span class="ld-msg" id="ld-txt">The leaves are settling...</span></div>
+</div>
+</div>
+<div class="dv"><div class="dv-l"></div></div>
+
+<!-- ===== SCREEN 4: FULL READING ===== -->
+<div class="col">
+<div class="stag">SCREEN 4: FULL READING (hover symbols for detail)</div>
+<div class="rp">
+<div class="rp-repo">torvalds/linux</div>
+<div class="rp-title">THE READING</div>
+<div class="rp-syms">
+<div class="rp-s"><div class="rp-si">&#x26F0;</div><div class="rp-sn">MOUNTAIN</div><div class="sd"><b>MOUNTAIN</b><em>A great journey</em>Triggered: 1,247,000+ commits in repo lifetime</div></div>
+<div class="rp-s"><div class="rp-si">&#x2693;</div><div class="rp-sn">ANCHOR</div><div class="sd"><b>ANCHOR</b><em>Stability, steadfastness</em>Triggered: consistent commits over 19 years</div></div>
+<div class="rp-s"><div class="rp-si">&#x2600;</div><div class="rp-sn">SUN</div><div class="sd"><b>SUN</b><em>Great happiness, success</em>Triggered: test directory found</div></div>
+<div class="rp-s"><div class="rp-si">&#x1FAD6;</div><div class="rp-sn">TEACUP</div><div class="sd"><b>TEACUP</b><em>The vessel speaks</em>Always present. The reading happens inside a teapot.</div></div>
+</div>
+<div class="sym-leg">
+<div class="sym-leg-t">THE LEAVES REVEALED</div>
+<div class="sl-row"><div class="sl-ico">&#x26F0;</div><div class="sl-txt"><b>MOUNTAIN</b> A great journey. <span class="sl-trg">1,247,000+ commits across the repo's lifetime.</span></div></div>
+<div class="sl-row"><div class="sl-ico">&#x2693;</div><div class="sl-txt"><b>ANCHOR</b> Stability, steadfastness. <span class="sl-trg">Consistent commit frequency spanning 19 years.</span></div></div>
+<div class="sl-row"><div class="sl-ico">&#x2600;</div><div class="sl-txt"><b>SUN</b> Great happiness, success. <span class="sl-trg">Test directory detected. The rarest blessing.</span></div></div>
+<div class="sl-row"><div class="sl-ico">&#x1FAD6;</div><div class="sl-txt"><b>TEACUP</b> The vessel speaks. <span class="sl-trg">Always present. Meta-symbol.</span></div></div>
+</div>
+<div class="rp-dv"></div>
+<div class="rp-sec"><div class="rp-sl">THE PAST</div><div class="rp-st">The leaves part to reveal a creation date that predates most of your dependencies' grandparents. Born in April 2005, this repository drew its first breath in C and never looked back. That certainty is either wisdom or hubris. The leaves cannot tell the difference.</div></div>
+<div class="rp-sec"><div class="rp-sl">THE PRESENT</div><div class="rp-st">1,247,000 commits. The file tree is not a tree. It is a forest that has achieved sentience. 65.2% C, 18.7% Assembly. Your MAINTAINERS file alone is 736,000 lines. That is not a file. That is a census. The Sun symbol burns bright: you have tests. So many tests.</div></div>
+<div class="rp-sec"><div class="rp-sl">THE FUTURE</div><div class="rp-st">This repository will outlive the servers it runs on, the developers who maintain it, and very possibly the concept of version control itself. Archaeologists will study your git log the way we study the Rosetta Stone. They will not understand the merge conflicts. Nobody does.</div></div>
+<div class="rp-brew"><div class="rp-bl">BREW RATING</div><div class="rp-bp">&#x1FAD6; &#x1FAD6; &#x1FAD6; &#x1FAD6; &#x1FAD6;</div></div>
+<div class="rp-verd">"The mountain does not ask for applause. It simply endures."</div>
+<div class="rp-luck"><div class="rp-ll">LUCKY COMMIT MESSAGE</div><div class="rp-lt">"refactor: taught the kernel to dream"</div></div>
+<div class="rp-acts">
+<button class="rb">SHARE CARD</button>
+<button class="rb">SAVE TO GRIMOIRE</button>
+<button class="rb">NEW READING</button>
+</div>
+</div>
+</div>
+<div class="dv"><div class="dv-l"></div></div>
+
+<!-- ===== SCREEN 5: 418 ===== -->
+<div class="col">
+<div class="stag">SCREEN 5: 418 TEAPOT (triggers: bad URL, "real code review", zero commits)</div>
+<div class="tp-box">
+<div class="tp-i">&#x1FAD6;</div>
+<div class="tp-t">418: I'M A TEAPOT</div>
+<div class="tp-m">You asked me to brew coffee. I can only read leaves.</div>
+<div class="tp-m" style="font-size:16px;">I'm a teapot. You asked me to brew coffee. I can only read leaves. This is not a code review tool. This is a vessel of divination.</div>
+<div class="tp-c">RFC 2324, Section 2.3.2</div>
+<button class="rb" style="margin-top:16px;">RETURN TO THE LEAVES</button>
+</div>
+</div>
+<div class="dv"><div class="dv-l"></div></div>
+
+<!-- ===== SCREEN 6: GRIMOIRE ===== -->
+<div class="col">
+<div class="stag">SCREEN 6: GRIMOIRE (drawer/modal, localStorage)</div>
+<div class="grim-box">
+<div class="grim-t">YOUR GRIMOIRE</div>
+<div class="grim-entry">
+<div class="grim-repo">torvalds/linux</div>
+<div class="grim-verd">"The mountain does not ask for applause."</div>
+<div class="grim-meta"><span>&#x1FAD6;&#x1FAD6;&#x1FAD6;&#x1FAD6;&#x1FAD6;</span><span>Apr 3, 2026</span></div>
+</div>
+<div class="grim-entry">
+<div class="grim-repo">earlgreyhot1701D/memoria-clew</div>
+<div class="grim-verd">"A labor of love with commit messages that would make a mystic weep."</div>
+<div class="grim-meta"><span>&#x1FAD6;&#x1FAD6;&#x1FAD6;</span><span>Apr 3, 2026</span></div>
+</div>
+<div class="grim-entry">
+<div class="grim-repo">facebook/react</div>
+<div class="grim-verd">"Everyone has opinions about your branches."</div>
+<div class="grim-meta"><span>&#x1FAD6;&#x1FAD6;&#x1FAD6;&#x1FAD6;</span><span>Apr 2, 2026</span></div>
+</div>
+</div>
+</div>
+<div class="dv"><div class="dv-l"></div></div>
+
+<!-- ===== RATE LIMIT EXHAUSTED STATE ===== -->
+<div class="col">
+<div class="stag">STATE: RATE LIMIT EXHAUSTED (replaces neon bar)</div>
+<div class="neon" style="color:var(--red);text-shadow:0 0 6px rgba(176,48,48,.3);background:rgba(176,48,48,.04);border-color:rgba(176,48,48,.2);">THE LEAVES HAVE GONE SILENT. RETURN WHEN THE HOUR TURNS. 0 / 60</div>
+</div>
+
+<div class="foot">AI assisted. Human approved. Powered by NLP.</div>
+</div>
+
+<script>
+var msgs=["The leaves are settling...","Consulting the grimoire...","The kettle whispers...","Steeping your sins...","Reading the commit entrails..."];
+var mi=0;
+setInterval(function(){mi=(mi+1)%msgs.length;var el=document.getElementById('ld-txt');if(el)el.textContent=msgs[mi];},2000);
+</script>

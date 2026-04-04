@@ -1,0 +1,15 @@
+{
+  "name": "steep",
+  "version": "1.0.0",
+  "description": "A tea leaf reading for your GitHub repo.",
+  "scripts": {
+    "dev": "vercel dev",
+    "test": "node tests/run.js"
+  },
+  "dependencies": {
+    "html2canvas": "^1.4.1"
+  },
+  "devDependencies": {
+    "vercel": "^33.0.0"
+  }
+}

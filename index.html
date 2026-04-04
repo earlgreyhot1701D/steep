@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steep — A tea leaf reading for your GitHub repo.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== CRASH SCREEN ===== -->
+  <div id="crash-screen" aria-live="polite" aria-label="Loading screen">
+    <div class="crash-box">
+      <!-- Pixel art teacup — identical to landing teacup, no cracks -->
+      <svg class="crash-cup" viewBox="0 0 40 24" aria-hidden="true">
+        <rect x="8"  y="4"  width="20" height="14" fill="#a06a10"/>
+        <rect x="7"  y="6"  width="1"  height="10" fill="#a06a10"/>
+        <rect x="29" y="6"  width="1"  height="10" fill="#a06a10"/>
+        <rect x="30" y="7"  width="3"  height="8"  fill="none" stroke="#a06a10" stroke-width="1"/>
+        <rect x="9"  y="5"  width="18" height="12" fill="#c88520"/>
+        <rect x="10" y="6"  width="16" height="4"  fill="#a06a10" opacity="0.3"/>
+        <rect x="7"  y="18" width="22" height="2"  fill="#7a5008"/>
+        <rect x="5"  y="20" width="26" height="2"  fill="#5c3d10"/>
+        <rect x="12" y="8"  width="2"  height="2"  fill="#5c3d10" opacity="0.4"/>
+        <rect x="17" y="7"  width="1"  height="1"  fill="#5c3d10" opacity="0.3"/>
+        <rect x="20" y="9"  width="2"  height="1"  fill="#5c3d10" opacity="0.35"/>
+      </svg>
+      <div class="crash-title">How 'bout a cuppa?</div>
+      <div class="crash-detail">Something spilled while steeping this page.</div>
+      <div class="crash-detail crash-detail--small">The teapot encountered an unexpected leaf configuration.</div>
+      <div class="crash-code">ERR_TEAPOT_418 :: STEEP_DIVINATION_FAULT</div>
+      <div class="crash-spinner-wrap"><div class="crash-spinner" aria-hidden="true"></div></div>
+      <button class="crash-skip" id="crash-skip" aria-label="Skip intro">press any key to skip</button>
+    </div>
+  </div>
+
+  <!-- ===== MAIN APP (hidden until crash dissolves) ===== -->
+  <div id="app">
+
+    <!-- Neon rate limit ticker (always visible) -->
+    <div class="neon-bar" id="neon-bar" aria-live="polite">
+      LEAVES REMAINING: 60 / 60 &bull; THE LEAVES GROW WEARY
+    </div>
+
+    <!-- Input zone (always visible inside app) -->
+    <div class="input-zone">
+      <div class="col">
+        <!-- Teacup with steam -->
+        <div class="tcup" aria-hidden="true">
+          <div class="steam">
+            <div class="steam-particle"></div>
+            <div class="steam-particle"></div>
+            <div class="steam-particle"></div>
+            <div class="steam-particle"></div>
+          </div>
+          <div class="tcup-glow"></div>
+          <svg class="px-cup" viewBox="0 0 40 24">
+            <rect x="8"  y="4"  width="20" height="14" fill="#a06a10"/>
+            <rect x="7"  y="6"  width="1"  height="10" fill="#a06a10"/>
+            <rect x="29" y="6"  width="1"  height="10" fill="#a06a10"/>
+            <rect x="30" y="7"  width="3"  height="8"  fill="none" stroke="#a06a10" stroke-width="1"/>
+            <rect x="9"  y="5"  width="18" height="12" fill="#c88520"/>
+            <rect x="10" y="6"  width="16" height="4"  fill="#a06a10" opacity="0.3"/>
+            <rect x="7"  y="18" width="22" height="2"  fill="#7a5008"/>
+            <rect x="5"  y="20" width="26" height="2"  fill="#5c3d10"/>
+            <rect x="12" y="8"  width="2"  height="2"  fill="#5c3d10" opacity="0.4"/>
+            <rect x="17" y="7"  width="1"  height="1"  fill="#5c3d10" opacity="0.3"/>
+            <rect x="20" y="9"  width="2"  height="1"  fill="#5c3d10" opacity="0.35"/>
+            <rect x="14" y="10" width="1"  height="1"  fill="#5c3d10" opacity="0.25"/>
+          </svg>
+        </div>
+
+        <h1 class="brand">STEEP</h1>
+        <p class="brand-sub">Your repo's fortune, steeped in truth.</p>
+
+        <div class="inp-block">
+          <div class="inp-label">Paste your repository</div>
+          <div class="inp-row">
+            <input
+              type="text"
+              id="repo-input"
+              placeholder="github.com/torvalds/linux"
+              aria-label="GitHub repository URL"
+              autocomplete="off"
+              spellcheck="false"
+            >
+            <button id="divine-btn" aria-label="Divine this repository">DIVINE</button>
+          </div>
+          <button class="real-btn" id="real-btn" aria-label="Request a real code review (triggers 418)">
+            Actually, give me a real code review &rarr;
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider" style="margin: 0 auto 16px;"></div>
+
+    <!-- ===== PANE: CARDS (landing carousel) ===== -->
+    <div id="pane-cards" class="pane pane--cards">
+      <div class="col">
+        <div class="sec-label-row">
+          <div class="sec-label">From the grimoire of past readings</div>
+          <button class="grimoire-btn" id="grimoire-btn" aria-label="Open your grimoire">YOUR GRIMOIRE</button>
+        </div>
+        <div class="carousel-wrap">
+          <button class="car-arrow car-arrow--left" id="car-left" aria-label="Scroll left">&larr;</button>
+          <button class="car-arrow car-arrow--right" id="car-right" aria-label="Scroll right">&rarr;</button>
+          <div class="carousel" id="carousel" role="list">
+            <!-- Cards injected by app.js from showcase.json -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PANE: LOADING ===== -->
+    <div id="pane-loading" class="pane pane--loading" aria-live="polite" hidden>
+      <div class="col">
+        <div class="loading-box">
+          <div class="loading-cup" aria-hidden="true">&#x1FAD6;</div>
+          <div class="loading-msg" id="loading-msg">The leaves are settling...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PANE: READING ===== -->
+    <div id="pane-reading" class="pane pane--reading" hidden>
+      <div class="col">
+        <div class="reading-pane" id="reading-pane">
+          <!-- Populated by reading.js -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PANE: 418 ===== -->
+    <div id="pane-418" class="pane pane--418" hidden>
+      <div class="col">
+        <div class="teapot-box">
+          <div class="teapot-icon" aria-hidden="true">&#x1FAD6;</div>
+          <div class="teapot-title">418: I'M A TEAPOT</div>
+          <p class="teapot-msg">You asked me to brew coffee. I can only read leaves.</p>
+          <p class="teapot-msg teapot-msg--small">This is not a code review tool. This is a vessel of divination.</p>
+          <div class="teapot-rfc">RFC 2324, Section 2.3.2</div>
+          <button class="reading-btn" id="return-btn">RETURN TO THE LEAVES</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PANE: GRIMOIRE ===== -->
+    <div id="pane-grimoire" class="pane pane--grimoire" hidden>
+      <div class="col">
+        <div class="grimoire-box" id="grimoire-box">
+          <div class="grimoire-title">YOUR GRIMOIRE</div>
+          <div id="grimoire-list">
+            <!-- Populated by reading.js from localStorage -->
+          </div>
+        </div>
+        <button class="grimoire-back" id="grimoire-back">&#x2190; RETURN TO THE LEAVES</button>
+      </div>
+    </div>
+
+    <footer class="footer">
+      AI assisted. Human approved. Powered by NLP.<br>
+      This vessel returns <a href="https://datatracker.ietf.org/doc/html/rfc2324" style="color:var(--teal);text-decoration:none;">418</a> when asked to brew coffee.<br>
+      Built for the DEV April Fools Challenge 2026
+    </footer>
+
+  </div><!-- /#app -->
+
+  <script src="js/symbols.js"></script>
+  <script src="js/github.js"></script>
+  <script src="js/reading.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
