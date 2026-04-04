@@ -1512,10 +1512,11 @@ body::after {
 
 /* ── Symbol legend "Appears because" label ── */
 .sym-legend-because {
-  font-family: 'Press Start 2P', monospace;
-  font-size: 6px;
+  font-family: 'VT323', monospace;
+  font-size: 15px;
   color: var(--teal);
   letter-spacing: 0.5px;
+  font-style: normal;
 }
 
 /* ── Reading subtitle ── */
