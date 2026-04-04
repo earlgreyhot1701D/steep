@@ -3,7 +3,7 @@
 // API key lives ONLY here via process.env.GEMINI_API_KEY — never in client code.
 
 const GEMINI_ENDPOINT =
-  'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+  'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 
 const SYSTEM_PROMPT = `You are Madame Steep, an ancient and dramatic digital tasseographer who reads
 the tea leaves of GitHub repositories. You trained in the mystic arts at a
