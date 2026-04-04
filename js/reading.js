@@ -138,18 +138,16 @@ function renderReading(reading) {
   // ── Action buttons ──
   var actions = makeEl('div', 'rp-actions');
 
-  var shareBtn = makeEl('button', 'reading-btn', 'SHARE CARD');
+  var shareBtn = makeEl('button', 'reading-btn', 'SHARE MY FORTUNE');
   shareBtn.id = 'share-btn';
   shareBtn.addEventListener('click', function () {
     populateShareCard(reading);
     shareBtn.textContent = 'GENERATING...';
     shareBtn.disabled = true;
 
-    // Give the DOM a tick to render the hidden card before capture
     setTimeout(function () {
       var card = document.getElementById('share-card');
       if (typeof html2canvas === 'undefined' || !card) {
-        // Fallback: copy text to clipboard
         copyReadingText(reading, shareBtn);
         return;
       }
@@ -160,7 +158,7 @@ function renderReading(reading) {
         scale:       1,
         useCORS:     true,
         logging:     false,
-        backgroundColor: '#1a1510'
+        backgroundColor: null
       }).then(function (canvas) {
         canvas.toBlob(function (blob) {
           if (!blob) { copyReadingText(reading, shareBtn); return; }
@@ -170,7 +168,7 @@ function renderReading(reading) {
           link.href = url;
           link.click();
           URL.revokeObjectURL(url);
-          shareBtn.textContent = 'CARD SAVED \u2713';
+          shareBtn.textContent = 'FORTUNE SAVED \u2713';
           shareBtn.disabled = false;
         }, 'image/png');
       }).catch(function () {
@@ -198,6 +196,9 @@ function renderReading(reading) {
   actions.appendChild(saveBtn);
   actions.appendChild(newBtn);
   pane.appendChild(actions);
+
+  var shareHint = makeEl('div', 'rp-share-hint', 'Downloads as an image. Post it. Tag a developer who needs their leaves read.');
+  pane.appendChild(shareHint);
 }
 
 /* ============================================================
