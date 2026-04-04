@@ -20,7 +20,7 @@ var REPOS = [
   'facebook/react',
   'danielmiessler/SecLists',
   'earlgreyhot1701D/memoria-clew',
-  'cursed-dev/abandoned-todo'
+  'kelseyhightower/nocode'
 ];
 
 // ── Load symbols.js into this scope ─────────────────────────────────────────
@@ -187,9 +187,20 @@ async function main() {
       var symbols = selectSymbols(repoData);
       console.log('  Symbols: ' + symbols.map(function (s) { return s.name; }).join(', '));
 
-      // 3. Call /api/divine
+      // 3. Call /api/divine (retry once on 429)
       console.log('  Calling Madame Steep...');
-      var reading = await post(DIVINE_URL, { repoData: repoData, symbols: symbols });
+      var reading;
+      try {
+        reading = await post(DIVINE_URL, { repoData: repoData, symbols: symbols });
+      } catch (e) {
+        if (e.message && e.message.indexOf('429') !== -1) {
+          console.log('  Rate limited — waiting 30s then retrying...');
+          await delay(30000);
+          reading = await post(DIVINE_URL, { repoData: repoData, symbols: symbols });
+        } else {
+          throw e;
+        }
+      }
       console.log('  Reading: OK — "' + reading.verdict + '"');
 
       // 4. Merge symbol icons/meanings back in (divine returns name+interpretation only)
@@ -224,10 +235,10 @@ async function main() {
       console.error('  Skipping ' + repoSlug);
     }
 
-    // Wait 2s between repos to avoid GitHub rate limit
+    // Wait 15s between repos to respect Gemini free tier rate limit
     if (i < REPOS.length - 1) {
-      console.log('  Waiting 2s...\n');
-      await delay(2000);
+      console.log('  Waiting 15s for Gemini rate limit...\n');
+      await delay(15000);
     }
   }
 

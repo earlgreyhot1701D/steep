@@ -64,19 +64,19 @@
     "snippet": "One contributor. 87 commits. The Heart reveals itself. But child, the Snake also stirs..."
   },
   {
-    "repo": "cursed-dev/abandoned-todo",
+    "repo": "kelseyhightower/nocode",
     "symbols": [
-      { "name": "GRIM",  "icon": "💀", "meaning": "The end approaches", "trigger": "No commits in 6+ months." },
-      { "name": "SKULL", "icon": "☠", "meaning": "Danger", "trigger": "No LICENSE file detected." },
-      { "name": "SNAKE", "icon": "🐍", "meaning": "Deception", "trigger": "Lazy commit messages throughout." },
-      { "name": "TEACUP","icon": "🫖", "meaning": "The vessel speaks", "trigger": "Always present. Meta-symbol." }
+      { "name": "GRIM",   "icon": "💀", "meaning": "The end approaches",  "trigger": "No commits in 6+ months." },
+      { "name": "SKULL",  "icon": "☠",  "meaning": "Danger in your path", "trigger": "No LICENSE file detected." },
+      { "name": "ANCHOR", "icon": "⚓", "meaning": "Stability, steadfastness", "trigger": "Consistent presence over years." },
+      { "name": "TEACUP", "icon": "🫖", "meaning": "The vessel speaks",   "trigger": "Always present. Meta-symbol." }
     ],
-    "past": "It began with ambition. A todo app. Simple. Clean. 'This time I'll finish it,' you said. The first commit was 'initial commit'. The second was 'add basic structure'. The third was 'fix bug'. The leaves have seen this before. They have seen it many times.",
-    "present": "Last commit: 847 days ago. Message: 'final fix'. It was not, in fact, final. The Grim reaper stands at the edge of the file tree. The Skull marks the absence of a license — not because you forgot, but because you stopped caring before you got there. The Snake coils through every commit message.",
-    "future": "This repository will not be updated. You know this. The leaves know this. The README still says 'coming soon'. It is not coming soon. It is not coming at all. The leaves suggest you either delete it or add a single commit that says 'abandoned with love'. Either is honest.",
-    "brew_rating": 1,
-    "verdict": "This repo died as it lived: without documentation.",
-    "lucky_commit": "final fix",
-    "snippet": "Last commit: 847 days ago. Message: 'final fix'. It was not, in fact, final..."
+    "past": "It began with a philosophy. No code. The best code is no code at all. Someone committed to this principle so thoroughly they made a repository to prove it.",
+    "present": "The leaves see nothing. No files. No commits of substance. Just a README and a dream. The Skull warns: no license. The Grim reaper nods approvingly.",
+    "future": "This repository will continue to contain no code. This is, remarkably, working as intended. The leaves have nothing to read. The cup is empty. The reading is complete.",
+    "brew_rating": 5,
+    "verdict": "The absence of code is itself a kind of perfection.",
+    "lucky_commit": "refactor: delete everything",
+    "snippet": "The leaves see nothing. No files. No commits of substance. Just a README and a dream..."
   }
 ]
