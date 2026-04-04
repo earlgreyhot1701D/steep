@@ -1516,3 +1516,12 @@ body::after {
   color: var(--teal);
   letter-spacing: 0.5px;
 }
+
+/* ── Reading subtitle ── */
+.rp-subtitle {
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+  color: var(--ink-dim);
+  text-align: center;
+  margin-bottom: 14px;
+}
