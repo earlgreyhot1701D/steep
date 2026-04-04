@@ -875,9 +875,9 @@ body::after {
   animation: sectionReveal 0.8s ease forwards;
 }
 
-.rp-section:nth-child(1) { animation-delay: 0.2s; }
-.rp-section:nth-child(2) { animation-delay: 0.7s; }
-.rp-section:nth-child(3) { animation-delay: 1.2s; }
+.rp-section--past    { animation-delay: 0.2s; }
+.rp-section--present { animation-delay: 0.7s; }
+.rp-section--future  { animation-delay: 1.2s; }
 
 .rp-section-label {
   font-family: 'Press Start 2P', monospace;
@@ -1163,7 +1163,7 @@ body::after {
 
 .grimoire-btn {
   font-family: 'Press Start 2P', monospace;
-  font-size: 6px;
+  font-size: 7px;
   padding: 5px 10px;
   background: transparent;
   border: 1px solid var(--amber-dim);
@@ -1336,4 +1336,112 @@ body::after {
   letter-spacing: 3px;
   margin-top: 16px;
   text-align: right;
+}
+
+/* ============================================================
+   MOBILE — Block 10 polish
+   Breakpoint: 600px
+   ============================================================ */
+@media (max-width: 600px) {
+
+  /* Tighten column padding */
+  .col {
+    padding: 0 12px;
+  }
+
+  /* Brand smaller on mobile */
+  .brand {
+    font-size: 22px;
+    letter-spacing: 4px;
+  }
+
+  .brand-sub {
+    font-size: 16px;
+  }
+
+  /* Input zone tighter */
+  .input-zone {
+    padding: 12px 0 8px;
+  }
+
+  /* Input button smaller */
+  .inp-row button {
+    font-size: 7px;
+    padding: 11px 12px;
+  }
+
+  /* Carousel: narrower cards, no side padding */
+  .carousel-wrap {
+    padding: 0 28px;
+  }
+
+  .preview-card {
+    flex: 0 0 200px;
+  }
+
+  /* Reading pane: tighter padding */
+  .reading-pane {
+    padding: 18px 14px;
+  }
+
+  /* Reading title smaller */
+  .rp-title {
+    font-size: 9px;
+  }
+
+  /* Section text slightly smaller */
+  .rp-section-text {
+    font-size: 16px;
+  }
+
+  /* Verdict smaller */
+  .rp-verdict {
+    font-size: 16px;
+  }
+
+  /* Action buttons stack on mobile */
+  .rp-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .reading-btn {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+  }
+
+  /* Grimoire box full width */
+  .grimoire-box {
+    max-width: 100%;
+  }
+
+  /* Neon bar smaller text */
+  .neon-bar {
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding: 8px 12px;
+  }
+
+  /* Symbol row wraps more gracefully */
+  .rp-syms {
+    gap: 8px;
+  }
+
+  .rp-sym-icon {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+
+  /* Teacup smaller */
+  .tcup {
+    width: 140px;
+    height: 110px;
+  }
+
+  .px-cup {
+    width: 140px;
+    height: 86px;
+  }
 }

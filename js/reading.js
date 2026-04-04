@@ -99,11 +99,11 @@ function renderReading(reading) {
 
   // ── Past / Present / Future sections ──
   [
-    { label: 'THE PAST',    text: reading.past    },
-    { label: 'THE PRESENT', text: reading.present },
-    { label: 'THE FUTURE',  text: reading.future  }
+    { label: 'THE PAST',    text: reading.past,    cls: 'rp-section--past'    },
+    { label: 'THE PRESENT', text: reading.present, cls: 'rp-section--present' },
+    { label: 'THE FUTURE',  text: reading.future,  cls: 'rp-section--future'  }
   ].forEach(function (sec) {
-    var section = makeEl('div', 'rp-section');
+    var section = makeEl('div', 'rp-section ' + sec.cls);
     section.appendChild(makeEl('div', 'rp-section-label', sec.label));
     section.appendChild(makeEl('div', 'rp-section-text', sec.text));
     pane.appendChild(section);
