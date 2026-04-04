@@ -15,13 +15,20 @@ var path   = require('path');
 var DIVINE_URL = 'https://steep418.vercel.app/api/divine';
 var OUT_FILE   = path.join(__dirname, '../data/showcase.json');
 
-var REPOS = [
+// All 5 repos in order — used when no argument is passed
+var ALL_REPOS = [
   'torvalds/linux',
   'facebook/react',
   'danielmiessler/SecLists',
   'earlgreyhot1701D/memoria-clew',
   'kelseyhightower/nocode'
 ];
+
+// Accept a single repo as CLI argument: node generate-showcase.js facebook/react
+// If no argument, run all repos (overwrites file)
+var singleRepo = process.argv[2] || null;
+var REPOS = singleRepo ? [singleRepo] : ALL_REPOS;
+var APPEND_MODE = !!singleRepo; // append when running one at a time
 
 // ── Load symbols.js into this scope ─────────────────────────────────────────
 eval(fs.readFileSync(path.join(__dirname, '../js/symbols.js'), 'utf8'));
@@ -252,9 +259,35 @@ async function main() {
     process.exit(1);
   }
 
-  fs.writeFileSync(OUT_FILE, JSON.stringify(results, null, 2));
-  console.log('\nWrote ' + results.length + ' readings to ' + OUT_FILE);
-  console.log('Done. Commit data/showcase.json to complete Block 6.');
+  // Append mode: merge with existing showcase.json, replacing any existing entry for the same repo
+  var finalResults = results;
+  if (APPEND_MODE) {
+    var existing = [];
+    try { existing = JSON.parse(fs.readFileSync(OUT_FILE, 'utf8')); } catch (e) {}
+    // Remove any existing entry for repos we just generated
+    var newRepos = results.map(function (r) { return r.repo; });
+    existing = existing.filter(function (e) { return newRepos.indexOf(e.repo) === -1; });
+    // Preserve original order: ALL_REPOS order
+    finalResults = ALL_REPOS.map(function (slug) {
+      return results.find(function (r) { return r.repo === slug; })
+          || existing.find(function (e) { return e.repo === slug; });
+    }).filter(Boolean);
+  }
+
+  fs.writeFileSync(OUT_FILE, JSON.stringify(finalResults, null, 2));
+  console.log('\nWrote ' + finalResults.length + ' readings to ' + OUT_FILE);
+  if (APPEND_MODE) {
+    var remaining = ALL_REPOS.filter(function (r) {
+      return !finalResults.find(function (e) { return e.repo === r; });
+    });
+    if (remaining.length > 0) {
+      console.log('Still needed: ' + remaining.join(', '));
+    } else {
+      console.log('All 5 repos complete. Commit data/showcase.json to finish Block 6.');
+    }
+  } else {
+    console.log('Done. Commit data/showcase.json to complete Block 6.');
+  }
 }
 
 main().catch(function (err) {
