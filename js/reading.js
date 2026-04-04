@@ -339,13 +339,9 @@ function populateShareCard(reading) {
     syms.appendChild(tag);
 
     if (interps) {
-      var row  = document.createElement('div');
-      row.className = 'sc-interp-row';
-      var name = document.createElement('span');
-      name.className   = 'sc-interp-name';
-      name.textContent = (s.name || '') + ': ';
-      row.appendChild(name);
-      row.appendChild(document.createTextNode(s.trigger || s.meaning || ''));
+      var row = document.createElement('div');
+      row.className   = 'sc-interp-row';
+      row.textContent = (s.icon || '') + ' ' + (s.trigger || s.meaning || '');
       interps.appendChild(row);
     }
   });
