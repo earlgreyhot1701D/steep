@@ -2,81 +2,229 @@
   {
     "repo": "torvalds/linux",
     "symbols": [
-      { "name": "MOUNTAIN", "icon": "⛰", "meaning": "A great journey", "trigger": "1,247,000+ commits across the repo's lifetime." },
-      { "name": "ANCHOR",   "icon": "⚓", "meaning": "Stability, steadfastness", "trigger": "Consistent commit frequency spanning 19 years." },
-      { "name": "SUN",      "icon": "☀", "meaning": "Great happiness, success", "trigger": "Test directory detected. The rarest blessing." },
-      { "name": "TEACUP",   "icon": "🫖", "meaning": "The vessel speaks", "trigger": "Always present. Meta-symbol." }
+      {
+        "name": "SWORD",
+        "icon": "⚔",
+        "meaning": "Conflict, arguments",
+        "trigger": "77% merge commits in recent history.",
+        "interpretation": "This repository's destiny is a perpetual clash, as the leaves swirl with 77% merge commits, a ceaseless dance of integration."
+      },
+      {
+        "name": "SUN",
+        "icon": "☀",
+        "meaning": "Great happiness, success",
+        "trigger": "Test directory or test files found.",
+        "interpretation": "A benevolent gleam illuminates this brew, for the presence of testing files reveals a hidden optimism and a foundation against utter chaos."
+      },
+      {
+        "name": "APPLE",
+        "icon": "🍎",
+        "meaning": "Good knowledge, achievement",
+        "trigger": "README is 6043 characters.",
+        "interpretation": "The leaves speak of ancient wisdom, transcribed into a README of 6043 characters, a grand scroll for those who seek understanding."
+      },
+      {
+        "name": "ANCHOR",
+        "icon": "⚓",
+        "meaning": "Stability, steadfastness",
+        "trigger": "Consistent commit frequency over 6+ months.",
+        "interpretation": "The patterns show unyielding progress, an **ANCHOR** of stability with consistent commit frequency, tying this vessel firmly to its path, for better or worse."
+      },
+      {
+        "name": "TEACUP",
+        "icon": "🫖",
+        "meaning": "The vessel speaks",
+        "trigger": "Always present. Meta-symbol.",
+        "interpretation": "The very vessel of this divination, the **TEACUP**, hums with the unspoken truths that only the swirling leaves dare to reveal."
+      }
     ],
-    "past": "The leaves part to reveal a creation date that predates most of your dependencies' grandparents. Born in April 2005, this repository drew its first breath in C and never looked back. That certainty is either wisdom or hubris. The leaves cannot tell the difference.",
-    "present": "1,247,000 commits. The file tree is not a tree. It is a forest that has achieved sentience. 65.2% C, 18.7% Assembly. Your MAINTAINERS file alone is 736,000 lines. That is not a file. That is a census. The Sun symbol burns bright: you have tests. So many tests.",
-    "future": "This repository will outlive the servers it runs on, the developers who maintain it, and very possibly the concept of version control itself. Archaeologists will study your git log the way we study the Rosetta Stone. They will not understand the merge conflicts. Nobody does.",
-    "brew_rating": 5,
-    "verdict": "The mountain does not ask for applause. It simply endures.",
-    "lucky_commit": "refactor: taught the kernel to dream",
-    "snippet": "33 years of commits. A file tree that resembles less a repository and more a geological formation..."
+    "past": "The cup’s murky depths stretch back 5325 days, revealing a creation rooted in the ancient magic of C, a solitary focus shaping its initial brew. The leaves show a deliberate birth, untroubled by distractions, destined to become a sprawling forest from a single, potent seed.",
+    "present": "Oh, what a turbulent brew we have now! The **SWORD** of perpetual merging is evident, 77% of recent activity showing a constant struggle of integration, pulling in updates for things like 'Input: xpad - add support for BETOP BTP-KP50B/C controller's wireless mode'. The **APPLE** of knowledge manifests as a 6043-character README, a vast tome guiding travelers through the labyrinthine pathways seen in the `.rustfmt.toml` and `.pylintrc` files, betraying whispers of new energies stirring amidst the 98% C. Yet, for all its colossal size and 226,939 stars, the three open issues are an eerie stillness, a momentary calm before some unknown storm. The **ANCHOR** holds, the brew ever-active, but where is the ritual of continuous integration, child? The leaves are silent.",
+    "future": "The leaves swirl, predicting that the slow dance of the 0.3% Rust will surely grow, a sapling threatening to challenge the ancient forest of C. The relentless tide of 'Merge tag 'input-for-v7.0-rc6'' commits will continue, an unending stream, as the codebase, guided by its **ANCHOR**, maintains its steady, almost stubborn, path. Tests, illuminated by the **SUN**, will remain the quiet guardians, perhaps the only thing preventing total cosmic collapse as new hardware endlessly demands its tribute.",
+    "brew_rating": 4,
+    "verdict": "An ancient codebase, vast and complex, eternally merging.",
+    "lucky_commit": "Yet another merge, so it is written.",
+    "snippet": "Oh, what a turbulent brew we have now! The **SWORD** of perpetual merging is evident, 77% of recent activity showing a..."
   },
   {
     "repo": "facebook/react",
     "symbols": [
-      { "name": "SWORD", "icon": "⚔", "meaning": "Conflict", "trigger": "30%+ merge commits in recent history." },
-      { "name": "TREE",  "icon": "🌳", "meaning": "Branching paths", "trigger": "5+ active branches detected." },
-      { "name": "SPADE", "icon": "♠", "meaning": "Hard work ahead", "trigger": "CI/CD pipeline detected." },
-      { "name": "TEACUP","icon": "🫖", "meaning": "The vessel speaks", "trigger": "Always present. Meta-symbol." }
+      {
+        "name": "CROSS",
+        "icon": "✝",
+        "meaning": "Trials and suffering",
+        "trigger": "1209 open issues.",
+        "interpretation": "The leaves show the **CROSS**, a symbol of trials and suffering, manifest in the startling 1209 open issues, a burden heavy upon the cup."
+      },
+      {
+        "name": "SUN",
+        "icon": "☀",
+        "meaning": "Great happiness, success",
+        "trigger": "Test directory or test files found.",
+        "interpretation": "Yet, the **SUN** shines brightly, indicating great happiness and success, revealed by the presence of thorough test files that bring light to darker corners."
+      },
+      {
+        "name": "SPADE",
+        "icon": "♠",
+        "meaning": "Good fortune, hard work",
+        "trigger": "CI/CD configuration detected.",
+        "interpretation": "Good fortune and the fruits of hard work are promised by the **SPADE**, evidenced by the meticulously configured CI/CD pipeline, constantly stirring the brew of progress."
+      },
+      {
+        "name": "APPLE",
+        "icon": "🍎",
+        "meaning": "Good knowledge, achievement",
+        "trigger": "README is 5317 characters.",
+        "interpretation": "The **APPLE**, a symbol of knowledge and achievement, blooms from the impressive README of 5317 characters, a deep wellspring of understanding."
+      },
+      {
+        "name": "TEACUP",
+        "icon": "🫖",
+        "meaning": "The vessel speaks",
+        "trigger": "Always present. Meta-symbol.",
+        "interpretation": "The **TEACUP** itself, the very vessel of fate, reminds us that the leaves always find a home, always reveal a story within its confines."
+      }
     ],
-    "past": "Born of a Facebook hackathon in 2013, React arrived with the confidence of someone who has never been told no. It rewrote the rules of the DOM and then rewrote those rules again. The Sword was present from the beginning. It has never left.",
-    "present": "34% of recent commits are merge conflicts resolved. The Tree branches in seventeen directions simultaneously. Everyone has opinions. The CI pipeline runs 847 checks. It is unclear what 600 of them do. The leaves see this and nod knowingly.",
-    "future": "React will continue to exist in a state of perpetual reinvention. The next major version will break something you depend on. You will migrate. You will say it was worth it. The leaves are not sure you are telling the truth.",
+    "past": "The origins of this brew are ancient by digital standards, steeped since 2013-05-24, where JavaScript, a potent draught comprising 68.4% of the initial infusion, laid the very foundation. The early stirs of the leaves hinted at a desire to tame the unruly interface, a gargantuan task from the very start. From its inception, this concoction was destined for widespread adoption, a powerful elixir seeking to transform the digital ether.",
+    "present": "The present cup overflows with a complex brew; the JavaScript base is now interwoven with 28.7% TypeScript, a newer, more structured essence. The leaves reveal a staggering 244,394 stars, a constellation of admiration, yet the ominous **CROSS** of 1209 open issues remains a constant cloud, a testament to endless challenges. While the **SPADE** of CI/CD ensures tireless integration and the **SUN** of tests brings clarity, the `.claude` folder, with its `extract-errors` and `feature-flags` skills, whispers of new automatons stirring within the depths. Even with recent commits like 'Fix typos: occured->occurred', the sheer volume of changes ensures the kettle never stops boiling.",
+    "future": "The tea leaves twist and turn, predicting a future where the AI agents lurking in `.claude` may yet gain further influence, perhaps even writing their own benchmark fixtures for the 'Flight SSR' that so dominates the recent commits. While the **APPLE** of deep documentation will strive to illuminate the path, the persistent **CROSS** of issues suggests that developers will forever be pouring over this robust blend, fixing 'typos' and 'transporting AggregateErrors' long after the stars have faded. It is a brew that demands constant attention, lest it boil over.",
     "brew_rating": 4,
-    "verdict": "Everyone has opinions about your branches.",
-    "lucky_commit": "fix: stop the bleeding (for now)",
-    "snippet": "Merge conflicts in the leaves. So many. The Sword reveals itself in 34% of recent history..."
+    "verdict": "A legendary brew, yet eternally brewing and endlessly complex.",
+    "lucky_commit": "AI: Teach Claude not to self-extract.",
+    "snippet": "The present cup overflows with a complex brew; the JavaScript base is now interwoven with 28.7% TypeScript, a newer,..."
   },
   {
     "repo": "danielmiessler/SecLists",
     "symbols": [
-      { "name": "MOUNTAIN", "icon": "⛰", "meaning": "A great journey", "trigger": "100+ commits across the repo's lifetime." },
-      { "name": "SKULL",    "icon": "💀", "meaning": "Danger lurks", "trigger": "No LICENSE file detected." },
-      { "name": "KITE",     "icon": "🪁", "meaning": "Wishes and ambition", "trigger": "Roadmap file detected." },
-      { "name": "TEACUP",   "icon": "🫖", "meaning": "The vessel speaks", "trigger": "Always present. Meta-symbol." }
+      {
+        "name": "SUN",
+        "icon": "☀",
+        "meaning": "Great happiness, success",
+        "trigger": "Test directory or test files found.",
+        "interpretation": "**SUN** - This codebase beams with the `test directory or test files found`, indicating a conscious effort to validate its vast data, a fleeting moment of clarity in the brew."
+      },
+      {
+        "name": "SPADE",
+        "icon": "♠",
+        "meaning": "Good fortune, hard work",
+        "trigger": "CI/CD configuration detected.",
+        "interpretation": "**SPADE** - The presence of `CI/CD configuration` suggests a tireless hand constantly working to maintain this brew, even if it is an automated one."
+      },
+      {
+        "name": "APPLE",
+        "icon": "🍎",
+        "meaning": "Good knowledge, achievement",
+        "trigger": "README is 4795 characters.",
+        "interpretation": "**APPLE** - Your README, stretching to a magnificent `4795 characters`, promises abundant knowledge, a vital guide through the deep and sometimes murky waters of these lists."
+      },
+      {
+        "name": "ANCHOR",
+        "icon": "⚓",
+        "meaning": "Stability, steadfastness",
+        "trigger": "Consistent commit frequency over 6+ months.",
+        "interpretation": "**ANCHOR** - The `consistent commit frequency over 6+ months` shows this vessel, though ancient, is held fast by unseen forces, preventing it from drifting into true oblivion."
+      },
+      {
+        "name": "TEACUP",
+        "icon": "🫖",
+        "meaning": "The vessel speaks",
+        "trigger": "Always present. Meta-symbol.",
+        "interpretation": "**TEACUP** - This very vessel, ever-present, holds the bitter and the sweet, mirroring the long, strange journey this brew has taken since its first steeping."
+      }
     ],
-    "past": "A repository born not from code but from obsession. Someone decided to collect every password, every username, every fuzzing string ever conceived by the security community. They did not stop. They have not stopped. The Mountain was inevitable.",
-    "present": "The leaves see no code. Only lists. Thousands of lists. Text files arranged with the obsessive precision of a librarian who has seen too much. The Skull warns: no license. The Kite dreams of a roadmap that will never be finished. The collection grows.",
-    "future": "SecLists will continue to grow until it contains every possible string that has ever been typed by a human being. At that point it will become a mirror. You will look into it and see yourself. The leaves advise against this.",
+    "past": "The leaves show this brew began its life over five thousand days ago, in the ancient times of February 2012. A potent concoction, indeed, primarily stirred with `PHP at 52.6%` and even a bitter twist of `Classic ASP at 11.6%`. From its very creation, this cup was destined to hold a sprawling, eclectic mix, a reflection of the security seeker's enduring quest.",
+    "present": "And what swirling chaos do the present leaves reveal? This cauldron, while vast, seems to be stirring itself! The recent tea leaves are dominated by the rhythmic clinking of `\"[Github Action] Automated trickest wordlists update,\"`, a robotic hum drowning out the human touch in the final days of this infusion. The .bin directory, with its peculiar `etc-files-list-update`, feels less like a treasure trove and more like a dumping ground of scripts. Yet, the `APPLE` of your README, at `4795 characters`, truly shines, offering detailed guidance through this sprawling jungle of data, a necessary beacon in the overwhelming dark. This brew, with its 69903 stars, attracts many, but few dare to touch its primary components.",
+    "future": "Will this brew ever truly settle? The `ANCHOR` speaks of a stability born of inertia, a vessel caught in currents rather than charting a course. I foresee an eternal dance of automated updates, a codebase that lives on, not by choice, but by endless repetition, perhaps never purging the lingering bitterness of that `11.6% Classic ASP`. The spirits in the machine will continue their work, but true human intervention may become a mere legend whispered over cold cups of tea.",
     "brew_rating": 4,
-    "verdict": "The leaves see no code. Only lists. Thousands of lists.",
-    "lucky_commit": "add: 847 new passwords nobody should be using",
-    "snippet": "A repository of pure text files arranged with the obsessive precision of a librarian who has seen too much..."
+    "verdict": "A mighty, ancient brew, updated by ghosts in the machine.",
+    "lucky_commit": "Automate the automate.",
+    "snippet": "And what swirling chaos do the present leaves reveal? This cauldron, while vast, seems to be stirring itself! The..."
   },
   {
     "repo": "earlgreyhot1701D/memoria-clew",
     "symbols": [
-      { "name": "HEART", "icon": "♥", "meaning": "Devotion", "trigger": "Solo contributor, 100+ commits." },
-      { "name": "SNAKE", "icon": "🐍", "meaning": "Deception stirs", "trigger": "50%+ lazy commit messages detected." },
-      { "name": "APPLE", "icon": "🍎", "meaning": "Knowledge sought", "trigger": "README exceeds 500 characters." },
-      { "name": "TEACUP","icon": "🫖", "meaning": "The vessel speaks", "trigger": "Always present. Meta-symbol." }
+      {
+        "name": "SUN",
+        "icon": "☀",
+        "meaning": "Great happiness, success",
+        "trigger": "Test directory or test files found.",
+        "interpretation": "The leaves show that this codebase basks in the **SUN**, as evidenced by the detected test files, promising a radiant path free from the shadows of untested horrors."
+      },
+      {
+        "name": "SPADE",
+        "icon": "♠",
+        "meaning": "Good fortune, hard work",
+        "trigger": "CI/CD configuration detected.",
+        "interpretation": "A sturdy **SPADE** has dug deep into the workflow, signaling that the `backend-test.yml` and `frontend-test.yml` promise a harvest of automated builds rather than manual toil."
+      },
+      {
+        "name": "APPLE",
+        "icon": "🍎",
+        "meaning": "Good knowledge, achievement",
+        "trigger": "README is 12680 characters.",
+        "interpretation": "The grand **APPLE** of knowledge ripens within the README, stretching to a formidable 12680 characters, a veritable feast for any seeker."
+      },
+      {
+        "name": "TEACUP",
+        "icon": "🫖",
+        "meaning": "The vessel speaks",
+        "trigger": "Always present. Meta-symbol.",
+        "interpretation": "The **TEACUP** itself hums with an unusual energy, holding the very brew of this repository's destiny within its porcelain walls."
+      }
     ],
-    "past": "One person. One vision. 87 commits spanning the better part of a year. The Heart reveals itself immediately — this is a labor of love, the kind that gets started at 2am and committed to at 3am with messages like 'wip' and 'finally'. The leaves recognize this energy.",
-    "present": "The Snake stirs in the commit history. 'fix', 'update', 'stuff', 'asdfgh'. The Apple glows: the README is thoughtful, detailed, written by someone who cares. The contradiction is the reading. You know what this is. You just haven't told anyone else yet.",
-    "future": "This repository will either become something remarkable or remain a beautiful secret. The leaves see both futures with equal clarity. The Heart is strong. The Snake is patient. The outcome depends entirely on whether you push to main this weekend.",
+    "past": "The leaves swirl with recent beginnings, for this repository was birthed a mere 64 days ago. A strong brew of TypeScript and JavaScript, chosen from the start, signifies a modern approach, untainted by the ghosts of older languages. Yet, the origins speak of a hurried intent, a vessel poured with grand ambition but few to witness its first stirrings.",
+    "present": "The present cup reveals a perplexing stillness. Though the **APPLE** of knowledge in its 12680-character README promises much, and the leaves show 88.7% TypeScript, this vessel has known but one lonely star. The leaves note that the last stirring was 61 days past, even after a flurry of 30 commits like 'feat: enable Pattern Analysis' and 'docs: Add deep pattern analysis image to README'. What grand \"Pattern Analysis\" is so important it causes the entire brew to go cold? Your assets, like `deeppatternanalysis.png`, speak of great visions, yet the code sits quietly, untouched.",
+    "future": "The future's tea leaves remain clouded, for this brew holds immense potential yet sits untended. Will the promise of the **SUN** and its detected tests ever shine brightly for this project, or will it remain a forgotten memory, a dream of analysis unfulfilled? The **SPADE**, however, suggests that its well-established CI/CD workflows will one day awaken to a new round of industrious labor, if only you remember to stir the pot once more.",
     "brew_rating": 3,
-    "verdict": "A labor of love with commit messages that would make a mystic weep.",
-    "lucky_commit": "wip: it's almost working i think",
-    "snippet": "One contributor. 87 commits. The Heart reveals itself. But child, the Snake also stirs..."
+    "verdict": "A robust brew, full of promise, awaiting its next steep.",
+    "lucky_commit": "Recall what you brewed, before it cools.",
+    "snippet": "The present cup reveals a perplexing stillness. Though the **APPLE** of knowledge in its 12680-character README..."
   },
   {
     "repo": "kelseyhightower/nocode",
     "symbols": [
-      { "name": "GRIM",   "icon": "💀", "meaning": "The end approaches",  "trigger": "No commits in 6+ months." },
-      { "name": "SKULL",  "icon": "☠",  "meaning": "Danger in your path", "trigger": "No LICENSE file detected." },
-      { "name": "ANCHOR", "icon": "⚓", "meaning": "Stability, steadfastness", "trigger": "Consistent presence over years." },
-      { "name": "TEACUP", "icon": "🫖", "meaning": "The vessel speaks",   "trigger": "Always present. Meta-symbol." }
+      {
+        "name": "GRIM",
+        "icon": "💀",
+        "meaning": "Danger, death approaches",
+        "trigger": "No commits in 605 days.",
+        "interpretation": "The leaves show the shadow of the GRIM upon this cup, for no new commits have stirred its surface in 605 days, hinting at a long and silent slumber."
+      },
+      {
+        "name": "CROSS",
+        "icon": "✝",
+        "meaning": "Trials and suffering",
+        "trigger": "4701 open issues.",
+        "interpretation": "A heavy CROSS emerges, clear as day, with 4701 open issues, signifying a torrent of suffering and unresolved pleas swirling within its depths."
+      },
+      {
+        "name": "APPLE",
+        "icon": "🍎",
+        "meaning": "Good knowledge, achievement",
+        "trigger": "README is 835 characters.",
+        "interpretation": "Behold the APPLE, radiating good knowledge from its 835-character README, a testament to thought and intention despite the code's absence."
+      },
+      {
+        "name": "ACORN",
+        "icon": "🌰",
+        "meaning": "Unexpected gold, windfall",
+        "trigger": "Stars-to-age ratio is high (65139 stars in 2978 days).",
+        "interpretation": "An ACORN, symbol of unexpected gold, reveals itself through a remarkable 65139 stars gathered in only 2978 days, a startling windfall of attention for doing... well, nothing."
+      },
+      {
+        "name": "TEACUP",
+        "icon": "🫖",
+        "meaning": "The vessel speaks",
+        "trigger": "Always present. Meta-symbol.",
+        "interpretation": "The very TEACUP speaks, an ever-present vessel revealing the fate of this unique brew, its patterns etched for Madame Steep's gaze."
+      }
     ],
-    "past": "It began with a philosophy. No code. The best code is no code at all. Someone committed to this principle so thoroughly they made a repository to prove it.",
-    "present": "The leaves see nothing. No files. No commits of substance. Just a README and a dream. The Skull warns: no license. The Grim reaper nods approvingly.",
-    "future": "This repository will continue to contain no code. This is, remarkably, working as intended. The leaves have nothing to read. The cup is empty. The reading is complete.",
-    "brew_rating": 5,
-    "verdict": "The absence of code is itself a kind of perfection.",
-    "lucky_commit": "refactor: delete everything",
-    "snippet": "The leaves see nothing. No files. No commits of substance. Just a README and a dream..."
+    "past": "The past, as revealed by the very first swirl of these leaves on 2018-02-06, shows a beginning born not of code, but of a defiant philosophy. Your brew was infused from the start with 100% Dockerfile, a bold declaration of intent. The early whispers, such as 'add no code', portended a path less traveled, a philosophical project destined to stir controversy in every developer's cup.",
+    "present": "Oh, what a perplexing brew these leaves display in the present! The GRIM looms, for your vessel, having offered 'add style guide' and 'add windows support' in its earliest stirs, has seen no new infusions in over 600 sunrises. The great ACORN of 65139 stars shines brightly, yet beneath this acclaim, the CROSS of 4701 open issues rages, a storm of unaddressed questions swirling without resolution. Even with the APPLE of a well-formed README.md and a clear STYLE.md, the brew remains a pure, untouched Dockerfile, eternally lacking tests and CI, forever in its initial, elegant stasis.",
+    "future": "The leaves churn with a strange, contradictory vision for the future of this noble brew. Will the silence stretch further, the GRIM holding it in perpetual slumber? Perhaps this vessel will forever serve as a monument, its 4701 CROSSes never closing, yet its ACORN of popularity continuing to draw gazes. Do not expect new ingredients to be added; the spirit of 'nocode' suggests it will endure as an idea, unchangeable, eternally contemplating the emptiness within its well-documented core.",
+    "brew_rating": 3,
+    "verdict": "A brewed paradox: immensely popular, yet utterly uncommitted. Drink your silence.",
+    "lucky_commit": "Reduce complexity to zero.",
+    "snippet": "Oh, what a perplexing brew these leaves display in the present! The GRIM looms, for your vessel, having offered 'add..."
   }
 ]
