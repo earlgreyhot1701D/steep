@@ -131,11 +131,10 @@ function showPane(name) {
    LOADING MESSAGES
    ============================================================ */
 var LOADING_MSGS = [
-  'The leaves are settling...',
-  'Consulting the grimoire...',
-  'The kettle whispers...',
-  'Steeping your sins...',
-  'Reading the commit entrails...'
+  'Madame Steep peers into your cup...',
+  'The leaves are arranging themselves...',
+  'She sees something in the sediment...',
+  'The kettle whispers her name...'
 ];
 var _msgIdx      = 0;
 var _msgInterval = null;

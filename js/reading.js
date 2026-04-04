@@ -45,7 +45,7 @@ function renderReading(reading) {
   pane.appendChild(makeEl('div', 'rp-repo', reading.repo));
 
   // ── Title ──
-  pane.appendChild(makeEl('div', 'rp-title', 'THE LEAVES HAVE SPOKEN'));
+  pane.appendChild(makeEl('div', 'rp-title', 'MADAME STEEP SPEAKS'));
   pane.appendChild(makeEl('div', 'rp-subtitle', 'These symbols appeared in your cup:'));
 
   // ── Symbol icons row ──
