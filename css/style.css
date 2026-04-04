@@ -841,9 +841,9 @@ body::after {
 
 .sym-legend-text {
   font-family: 'VT323', monospace;
-  font-size: 16px;
+  font-size: 18px;
   color: var(--ink);
-  line-height: 1.4;
+  line-height: 1.5;
 }
 .sym-legend-text b {
   color: var(--amber);
@@ -853,7 +853,7 @@ body::after {
 }
 
 .sym-legend-trigger {
-  font-size: 14px;
+  font-size: 16px;
   color: var(--ink-mid);
   font-style: italic;
   display: block;
