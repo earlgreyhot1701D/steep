@@ -1197,7 +1197,7 @@ body::after {
 /* ============================================================
    SHARE CARD — hidden element captured by html2canvas
    1200x630px (Twitter/LinkedIn card ratio)
-   Matches app's dusty blue pixel aesthetic
+   Three-band layout: dark header / verdict / details grid
    ============================================================ */
 
 #share-card {
@@ -1206,156 +1206,143 @@ body::after {
   left: -9999px;
   width: 1200px;
   height: 630px;
-  background: var(--bg);
-  padding: 16px;
-}
-
-.sc-inner {
-  background: var(--card-bg);
-  border: 3px solid var(--amber-dim);
-  padding: 32px 40px;
-  position: relative;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  border: 3px solid var(--amber-dim);
+  overflow: hidden;
 }
 
-.sc-inner::before {
-  content: '';
-  position: absolute;
-  top: 5px; left: 5px; right: 5px; bottom: 5px;
-  border: 1px solid var(--card-inner);
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* TOP: brand + repo on one line */
-.sc-top {
+/* BAND 1: dark branded header */
+.sc-band-top {
+  background: var(--ink);
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 8px;
+  align-items: center;
+  padding: 20px 36px;
 }
 
 .sc-brand {
   font-family: 'Press Start 2P', monospace;
-  font-size: 24px;
+  font-size: 22px;
   color: var(--amber);
   letter-spacing: 8px;
   text-shadow: 2px 2px 0 var(--amber-dim);
 }
 
-.sc-tagline {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 16px;
-  font-style: italic;
-  color: var(--ink-dim);
-  margin-top: 4px;
-}
-
-.sc-top-right { text-align: right; }
-
 .sc-repo {
   font-family: 'VT323', monospace;
   font-size: 28px;
+  color: var(--card-bg);
+}
+
+/* BAND 2: the verdict */
+.sc-band-mid {
+  background: var(--card-bg);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 48px;
+  border-bottom: 1px solid var(--card-inner);
+}
+
+.sc-verdict {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 46px;
+  font-weight: 600;
+  font-style: italic;
   color: var(--ink);
-  margin-bottom: 8px;
+  line-height: 1.25;
+  text-align: center;
+  max-width: 950px;
+  margin-bottom: 16px;
 }
 
 .sc-symbols {
   display: flex;
-  gap: 8px;
-  justify-content: flex-end;
+  gap: 10px;
+  justify-content: center;
   flex-wrap: wrap;
+  margin-bottom: 12px;
 }
 
 .sc-sym-tag {
   font-family: 'Press Start 2P', monospace;
-  font-size: 9px;
-  padding: 5px 10px;
+  font-size: 8px;
+  padding: 4px 10px;
   border: 1px solid var(--amber-dim);
   color: var(--amber);
   background: rgba(160,106,16,0.06);
   letter-spacing: 1px;
 }
 
-/* MIDDLE: verdict fills the center, BIG */
-.sc-middle {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px 0;
+.sc-credit {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+  color: var(--ink-faint);
+  letter-spacing: 3px;
+  margin-top: 4px;
 }
 
-.sc-verdict {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 48px;
-  font-weight: 600;
-  font-style: italic;
-  color: var(--ink);
-  line-height: 1.25;
-  text-align: center;
-  max-width: 1000px;
+/* BAND 3: details grid */
+.sc-band-bot {
+  background: var(--bg);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 20px 36px;
+  gap: 24px;
+  align-items: end;
 }
 
-/* BOTTOM: interpretations left, rating + commit right */
-.sc-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 40px;
-}
-
-.sc-bottom-left {
-  flex: 1;
-}
+.sc-col-center { text-align: center; }
+.sc-col-right  { text-align: right; }
 
 .sc-interpretations {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
 }
 
 .sc-interp-row {
   font-family: 'VT323', monospace;
-  font-size: 20px;
-  color: var(--ink-dim);
+  font-size: 18px;
+  color: var(--ink-mid);
   line-height: 1.3;
 }
 
 .sc-interp-name {
   font-family: 'Press Start 2P', monospace;
-  font-size: 8px;
+  font-size: 7px;
   color: var(--amber);
   letter-spacing: 1px;
 }
 
-.sc-bottom-right {
-  text-align: right;
-  flex-shrink: 0;
+.sc-rating-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  color: var(--ink-dim);
+  letter-spacing: 2px;
+  margin-bottom: 6px;
 }
 
 .sc-rating {
-  font-size: 36px;
+  font-size: 38px;
   letter-spacing: 8px;
-  color: var(--amber);
-  margin-bottom: 12px;
   font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
 }
 
 .sc-commit-wrap {
-  border: 1px dashed var(--reading-border);
+  border: 1px dashed var(--amber-dim);
   padding: 10px 14px;
-  background: rgba(160,106,16,0.03);
-  margin-bottom: 12px;
+  background: rgba(160,106,16,0.04);
+  margin-bottom: 10px;
   text-align: left;
 }
 
 .sc-commit-label {
   font-family: 'Press Start 2P', monospace;
-  font-size: 8px;
+  font-size: 7px;
   color: var(--ink-dim);
   letter-spacing: 2px;
   margin-bottom: 4px;
@@ -1363,14 +1350,14 @@ body::after {
 
 .sc-commit {
   font-family: 'VT323', monospace;
-  font-size: 20px;
+  font-size: 19px;
   color: var(--ink-mid);
   font-style: italic;
 }
 
 .sc-url {
   font-family: 'Press Start 2P', monospace;
-  font-size: 10px;
+  font-size: 9px;
   color: var(--teal);
   letter-spacing: 3px;
 }
