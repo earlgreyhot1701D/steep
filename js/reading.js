@@ -153,11 +153,11 @@ function renderReading(reading) {
       }
 
       html2canvas(card, {
-        width:       1200,
-        height:      630,
-        scale:       1,
-        useCORS:     true,
-        logging:     false,
+        width:           1200,
+        height:          630,
+        scale:           2,
+        useCORS:         true,
+        logging:         false,
         backgroundColor: null
       }).then(function (canvas) {
         canvas.toBlob(function (blob) {

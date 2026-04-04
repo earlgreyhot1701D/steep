@@ -1285,18 +1285,18 @@ body::after {
   margin-top: 4px;
 }
 
-/* BAND 3: details grid */
+/* BAND 3: details grid — two columns */
 .sc-band-bot {
   background: var(--bg);
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  padding: 20px 36px;
-  gap: 24px;
-  align-items: end;
+  grid-template-columns: 1fr 1fr;
+  padding: 24px 40px;
+  gap: 32px;
+  align-items: center;
 }
 
-.sc-col-center { text-align: center; }
-.sc-col-right  { text-align: right; }
+.sc-col-left  { text-align: left; }
+.sc-col-right { text-align: right; }
 
 .sc-interpretations {
   display: flex;
@@ -1320,21 +1320,21 @@ body::after {
 
 .sc-rating-label {
   font-family: 'Press Start 2P', monospace;
-  font-size: 7px;
+  font-size: 9px;
   color: var(--ink-dim);
   letter-spacing: 2px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .sc-rating {
-  font-size: 38px;
+  font-size: 48px;
   letter-spacing: 8px;
   font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
 }
 
 .sc-commit-wrap {
   border: 1px dashed var(--amber-dim);
-  padding: 10px 14px;
+  padding: 12px 16px;
   background: rgba(160,106,16,0.04);
   margin-bottom: 10px;
   text-align: left;
@@ -1342,24 +1342,33 @@ body::after {
 
 .sc-commit-label {
   font-family: 'Press Start 2P', monospace;
-  font-size: 7px;
+  font-size: 9px;
   color: var(--ink-dim);
   letter-spacing: 2px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .sc-commit {
   font-family: 'VT323', monospace;
-  font-size: 19px;
+  font-size: 24px;
   color: var(--ink-mid);
   font-style: italic;
 }
 
 .sc-url {
   font-family: 'Press Start 2P', monospace;
-  font-size: 9px;
+  font-size: 10px;
   color: var(--teal);
   letter-spacing: 3px;
+  margin-bottom: 6px;
+}
+
+.sc-attr {
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+  color: var(--ink-faint);
+  letter-spacing: 1px;
+  text-align: right;
 }
 
 /* ============================================================
