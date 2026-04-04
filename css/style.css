@@ -587,7 +587,7 @@ body::after {
 /* Card symbol name label */
 .pc-sym-name {
   font-family: 'Press Start 2P', monospace;
-  font-size: 5px;
+  font-size: 7px;
   color: var(--amber);
   letter-spacing: 0.3px;
   text-align: center;
@@ -663,7 +663,7 @@ body::after {
 
 .pc-expand {
   font-family: 'Press Start 2P', monospace;
-  font-size: 6px;
+  font-size: 7px;
   color: var(--teal);
   letter-spacing: 1px;
   cursor: pointer;
@@ -747,8 +747,8 @@ body::after {
 
 .rp-sym-name {
   font-family: 'Press Start 2P', monospace;
-  font-size: 6px;
-  color: var(--ink-dim);
+  font-size: 8px;
+  color: var(--ink-mid);
   letter-spacing: 1px;
 }
 
@@ -783,10 +783,10 @@ body::after {
 
 .sym-detail b {
   font-family: 'Press Start 2P', monospace;
-  font-size: 6px;
+  font-size: 8px;
   color: var(--amber-bright);
   display: block;
-  margin-bottom: 3px;
+  margin-bottom: 4px;
   letter-spacing: 1px;
 }
 
@@ -813,10 +813,10 @@ body::after {
 
 .sym-legend-title {
   font-family: 'Press Start 2P', monospace;
-  font-size: 7px;
-  color: var(--ink-dim);
+  font-size: 9px;
+  color: var(--ink-mid);
   letter-spacing: 2px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .sym-legend-row {
@@ -849,7 +849,7 @@ body::after {
 .sym-legend-text b {
   color: var(--amber);
   font-family: 'Press Start 2P', monospace;
-  font-size: 6px;
+  font-size: 8px;
   letter-spacing: 0.5px;
 }
 
@@ -905,7 +905,7 @@ body::after {
 
 .rp-brew-label {
   font-family: 'Press Start 2P', monospace;
-  font-size: 7px;
+  font-size: 9px;
   color: var(--amber);
   letter-spacing: 2px;
   margin-bottom: 6px;
@@ -940,10 +940,10 @@ body::after {
 
 .rp-lucky-label {
   font-family: 'Press Start 2P', monospace;
-  font-size: 6px;
-  color: var(--ink-dim);
+  font-size: 8px;
+  color: var(--ink-mid);
   letter-spacing: 2px;
-  margin-bottom: 3px;
+  margin-bottom: 5px;
 }
 
 .rp-lucky-text {
@@ -964,8 +964,8 @@ body::after {
 
 .reading-btn {
   font-family: 'Press Start 2P', monospace;
-  font-size: 7px;
-  padding: 7px 14px;
+  font-size: 8px;
+  padding: 8px 16px;
   background: transparent;
   border: 1px solid var(--amber-dim);
   color: var(--amber);
