@@ -1234,7 +1234,6 @@ body::after {
   font-size: 28px;
   color: var(--card-bg);
 }
-
 /* BAND 2: the verdict */
 .sc-band-mid {
   background: var(--card-bg);
@@ -1280,14 +1279,14 @@ body::after {
 .sc-credit {
   font-family: 'Press Start 2P', monospace;
   font-size: 6px;
-  color: var(--ink-faint);
+  color: var(--ink-dim);
   letter-spacing: 3px;
   margin-top: 4px;
 }
 
 /* BAND 3: details grid — two columns */
 .sc-band-bot {
-  background: var(--bg);
+  background: var(--input-bg);
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding: 24px 40px;
@@ -1307,7 +1306,7 @@ body::after {
 .sc-interp-row {
   font-family: 'VT323', monospace;
   font-size: 18px;
-  color: var(--ink-mid);
+  color: var(--ink);
   line-height: 1.3;
 }
 
@@ -1321,7 +1320,7 @@ body::after {
 .sc-rating-label {
   font-family: 'Press Start 2P', monospace;
   font-size: 9px;
-  color: var(--ink-dim);
+  color: var(--ink-mid);
   letter-spacing: 2px;
   margin-bottom: 8px;
 }
@@ -1343,7 +1342,7 @@ body::after {
 .sc-commit-label {
   font-family: 'Press Start 2P', monospace;
   font-size: 9px;
-  color: var(--ink-dim);
+  color: var(--ink-mid);
   letter-spacing: 2px;
   margin-bottom: 6px;
 }
@@ -1351,7 +1350,7 @@ body::after {
 .sc-commit {
   font-family: 'VT323', monospace;
   font-size: 24px;
-  color: var(--ink-mid);
+  color: var(--ink);
   font-style: italic;
 }
 
@@ -1366,7 +1365,7 @@ body::after {
 .sc-attr {
   font-family: 'VT323', monospace;
   font-size: 16px;
-  color: var(--ink-faint);
+  color: var(--ink-dim);
   letter-spacing: 1px;
   text-align: right;
 }
