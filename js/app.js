@@ -565,7 +565,7 @@ var SYMBOL_GUIDE_TEXT = {
   'SUN':      'Test files found',
   'SWORD':    '30%+ merge commits in recent history',
   'TREE':     'More than 5 active branches',
-  'TEACUP':   'Always present. The reading happens inside a teapot.'
+  'TEACUP':   'Always present. Every divination begins and ends with the vessel.'
 };
 
 function populateSymbolGuide() {

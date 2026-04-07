@@ -23,7 +23,7 @@ var SYMBOL_TABLE = [
 ];
 
 // Teacup is ALWAYS present
-var TEACUP = { name: 'TEACUP', icon: '\uD83E\uDED6', meaning: 'The vessel speaks', trigger: 'Always present. Meta-symbol.' };
+var TEACUP = { name: 'TEACUP', icon: '\uD83E\uDED6', meaning: 'The vessel speaks', trigger: 'Every reading begins and ends with the vessel. Without the Teacup, there are no leaves to read.' };
 
 // Bird is the fallback if fewer than 3 symbols match
 var BIRD_FALLBACK = SYMBOL_TABLE.filter(function(s) { return s.name === 'BIRD'; })[0];
