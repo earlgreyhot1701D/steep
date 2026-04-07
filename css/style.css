@@ -1826,19 +1826,15 @@ body::after {
 
   /* Home button: icon only */
   .home-btn {
-    font-size: 14px;
+    font-size: 0;
     letter-spacing: 0;
+    padding: 5px 8px;
   }
 
-  .home-btn::after {
-    content: '';
-  }
-
-  /* Replace home button text with just the teapot emoji */
-  .home-btn {
-    font-size: 18px;
-    letter-spacing: 0;
+  .home-btn::before {
+    content: '🫖';
     font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+    font-size: 18px;
   }
 
   /* Symbol guide button: icon only */
