@@ -1809,3 +1809,62 @@ body::after {
   font-size: 13px;
   color: var(--ink-faint);
 }
+
+/* ============================================================
+   MOBILE — narrow viewport fixes
+   Breakpoint: 480px
+   ============================================================ */
+@media (max-width: 480px) {
+
+  /* Neon bar: smaller text, padding-top to clear fixed buttons */
+  .neon-bar {
+    font-size: 13px;
+    letter-spacing: 1px;
+    padding: 10px 12px;
+    padding-top: 44px;
+  }
+
+  /* Home button: icon only */
+  .home-btn {
+    font-size: 14px;
+    letter-spacing: 0;
+  }
+
+  .home-btn::after {
+    content: '';
+  }
+
+  /* Replace home button text with just the teapot emoji */
+  .home-btn {
+    font-size: 18px;
+    letter-spacing: 0;
+    font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+  }
+
+  /* Symbol guide button: icon only */
+  .symbol-guide-btn {
+    font-size: 0;
+    padding: 5px 8px;
+    right: 52px;
+  }
+
+  .symbol-guide-btn::before {
+    content: '?';
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: var(--amber);
+  }
+
+  /* About button: icon only */
+  .about-btn {
+    font-size: 0;
+    padding: 5px 8px;
+  }
+
+  .about-btn::before {
+    content: 'i';
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    color: var(--amber);
+  }
+}

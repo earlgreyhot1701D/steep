@@ -350,12 +350,6 @@ document.getElementById('divine-btn').addEventListener('click', function () {
       stopLoadingMessages();
       _requestInFlight = false;
 
-      // Sync neon bar with real GitHub rate limit if available
-      if (data.rate_remaining !== null && data.rate_remaining !== undefined) {
-        _clientLeaves = data.rate_remaining;
-        updateNeonBar(data.rate_remaining, data.rate_limit || 60);
-      }
-
       // Re-enable button unless truly exhausted
       if (_clientLeaves > 0) setDivineEnabled(true);
 
