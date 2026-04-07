@@ -548,23 +548,23 @@ document.getElementById('home-btn').addEventListener('click', function () {
    SYMBOL GUIDE
    ============================================================ */
 var SYMBOL_GUIDE_TEXT = {
-  'ACORN':    'Stars-to-age ratio is unusually high',
-  'ANCHOR':   'Consistent commits over 6+ months',
+  'ACORN':    'Your repo is young but already beloved. The stars came fast.',
+  'ANCHOR':   'The commits never stopped. Six months or more of steady work.',
   'APPLE':    'README exceeds 500 characters',
-  'BIRD':     'Pushed within the last 7 days',
-  'CAT':      'Dependencies not updated in 2+ years',
-  'CROSS':    'More than 20 open issues',
-  'GRIM':     'No commits in 6+ months',
-  'HEART':    'Single contributor with 50+ commits',
-  'KITE':     'Roadmap or TODO file detected',
-  'MOON':     '.env.example AND .env both in file tree',
+  'BIRD':     'Someone was here recently. The kettle is still warm.',
+  'CAT':      'Old dependencies lurk in the file tree, smiling.',
+  'CROSS':    'Twenty or more open issues. The suffering is documented.',
+  'GRIM':     'No commits in six months. The leaves have gone cold.',
+  'HEART':    'One person. Fifty or more commits. This was built with feeling.',
+  'KITE':     'A roadmap or wishlist file was found. Someone has plans.',
+  'MOON':     'Both .env.example and .env are in the tree. Secrets, possibly exposed.',
   'MOUNTAIN': '100+ commits in repo lifetime',
-  'SKULL':    'No LICENSE file',
-  'SNAKE':    '50%+ single-word commit messages',
+  'SKULL':    'No LICENSE file. The legal path ahead is unmarked.',
+  'SNAKE':    'Half or more of recent commits are single words. \'fix.\' \'update.\' \'stuff.\'',
   'SPADE':    'CI/CD configuration detected',
-  'SUN':      'Test files found',
-  'SWORD':    '30%+ merge commits in recent history',
-  'TREE':     'More than 5 active branches',
+  'SUN':      'Test files were found. The rarest blessing in the leaves.',
+  'SWORD':    'More than 30% of recent commits are merges. Many hands, many opinions.',
+  'TREE':     'Five or more active branches. The tree has spread its arms wide.',
   'TEACUP':   'Always present. Every divination begins and ends with the vessel.'
 };
 
